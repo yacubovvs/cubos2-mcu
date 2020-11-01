@@ -1,0 +1,83 @@
+<html>
+    <head>
+
+        <style>
+
+        </style>
+
+        <script defer type='text/javascript' src='js/jquery-3.3.1.min.js'></script> 
+        <script src="js/ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+
+        <pre id="editor">
+            LINE 0,0,0,0,0
+        </pre>
+
+        <div id="result-title">
+            Result:
+        </div>
+
+        <pre id="result">
+            2LINE 0,0,0,0,0
+        </pre>
+
+        <style type="text/css" media="screen">
+            body {
+                overflow: hidden;
+            }
+        
+            #editor {
+                margin: 0;
+                position: absolute;
+                top: 0;
+                bottom: 50%;
+                left: 0;
+                right: 0;
+                z-index: 100;
+            }
+
+            #result {
+                margin: 0;
+                position: absolute;
+                top: calc(50% + 20px);
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 100;
+            }
+
+            #result-title{
+                margin: 0;
+                position: absolute;
+                top: calc(50%);
+                left: 0;
+                right: 0;
+                height: 20px;
+                color: white;
+                background-color: black;
+            }
+        </style>
+            
+        <script>
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/twilight");
+
+            var result = ace.edit("result");
+            result.setTheme("ace/theme/twilight");
+            /*editor.session.setMode("ace/mode/javascript");*/
+
+            window.onload = function(){
+                $('#editor textarea').on('change keyup paste', function() {
+                    var code = editor.getValue();
+                    result.setValue(code);
+                });
+            };
+
+            editor.$blockScrolling = Infinity;
+            result.$blockScrolling = Infinity;
+        </script>
+        
+        
+    <body>
+
+    </body>
+</html>
