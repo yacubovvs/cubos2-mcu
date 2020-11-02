@@ -26,7 +26,7 @@ void drawString(String dString, int x, int y, byte fontSize){
   char element_value[str_len];
   dString.toCharArray(element_value, str_len);
 
-  drawString(element_value, x, y, 1);
+  drawString(element_value, x, y, fontSize);
 }
 
 void drawString(String dString, int x, int y){
