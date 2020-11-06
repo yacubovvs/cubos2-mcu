@@ -96,3 +96,40 @@ int core_views_pages_list_get_element_position_x(int pages_quantity, int positio
     #                                                                                          #
     ############################################################################################
 */
+
+/*
+    ############################################################################################
+    #                                                                                          #
+    #                                    APPLICATION ICON +                                    #
+    #                                                                                          #
+    ############################################################################################
+*/
+
+#define CORE_VIEWS_APPICON_IMAGE_WIDTH          32
+#define CORE_VIEWS_APPICON_IMAGE_HEIGHT         32
+#define CORE_VIEWS_APPICON_IMAGE_Y_OFFSET       -10
+#define CORE_VIEWS_APPICON_TITLE_Y_OFFSET       20
+
+void core_views_draw_app_icon(boolean draw, int x, int y, const byte* title, const unsigned char* icon){
+    // image
+    setDrawColor(255, 255, 255);
+    //drawRect(x-CORE_VIEWS_APPICON_IMAGE_WIDTH/2, y-CORE_VIEWS_APPICON_IMAGE_HEIGHT/2 + CORE_VIEWS_APPICON_IMAGE_Y_OFFSET, x+CORE_VIEWS_APPICON_IMAGE_WIDTH/2, y+CORE_VIEWS_APPICON_IMAGE_HEIGHT/2 + CORE_VIEWS_APPICON_IMAGE_Y_OFFSET);
+
+    drawIcon(icon, x-CORE_VIEWS_APPICON_IMAGE_WIDTH/2, y-CORE_VIEWS_APPICON_IMAGE_HEIGHT/2 + CORE_VIEWS_APPICON_IMAGE_Y_OFFSET);
+
+    //Serial.println(x);
+    //Serial.println(y);
+    //Serial.println((char*)icon);
+
+    // title
+    setDrawColor(255, 255, 255);
+    drawString_centered((char*)title, x, y + CORE_VIEWS_APPICON_TITLE_Y_OFFSET);
+}
+
+/*
+    ############################################################################################
+    #                                                                                          #
+    #                                    APPLICATION ICON -                                    #
+    #                                                                                          #
+    ############################################################################################
+*/

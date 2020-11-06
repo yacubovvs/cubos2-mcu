@@ -108,7 +108,7 @@ void setup()
     Serial.begin(115200);
   #endif
   setup_displayDriver();
-  currentApp = getApp(0);
+  currentApp = getApp(-1);
 
 }
 
