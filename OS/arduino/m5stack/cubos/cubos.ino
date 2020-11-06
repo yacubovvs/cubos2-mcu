@@ -134,18 +134,7 @@ void onButtonEvent(byte event, int button){
 */
 
 // STATUS BAR 
-
 #define STYLE_STATUSBAR_HEIGHT  40
-
-// background
-#define STYLE_STATUSBAR_BACKGROUND_RED      116
-#define STYLE_STATUSBAR_BACKGROUND_GREEN    0
-#define STYLE_STATUSBAR_BACKGROUND_BLUE     176
-
-// text color
-#define STYLE_STATUSBAR_TEXT_RED      255
-#define STYLE_STATUSBAR_TEXT_GREEN    255
-#define STYLE_STATUSBAR_TEXT_BLUE     255
 
 /*
     ############################################################################################

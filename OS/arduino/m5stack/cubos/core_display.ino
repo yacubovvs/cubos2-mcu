@@ -125,7 +125,7 @@ void drawRect(int x0, int y0, int x1, int y1, boolean fill){
     else
       xDiff = x1 - x0;
 
-    while(xDiff > 0)
+    while(xDiff >= 0)
     {
       drawLine(x0, y0, x0, y1);
 
