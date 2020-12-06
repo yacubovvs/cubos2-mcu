@@ -30,6 +30,7 @@
 #define APP_MENU_APPLICATIONS_8             SimpleGameApp
 #define APP_MENU_APPLICATIONS_9             TestApplicationApp
 
+/*
 #define APP_MENU_APPLICATIONS_10            ClockApp
 #define APP_MENU_APPLICATIONS_11            ClockApp
 #define APP_MENU_APPLICATIONS_12            ClockApp
@@ -52,6 +53,7 @@
 #define APP_MENU_APPLICATIONS_29            ClockApp
 #define APP_MENU_APPLICATIONS_30            ClockApp
 #define APP_MENU_APPLICATIONS_31            ClockApp
+*/
 
 // # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # //
 
