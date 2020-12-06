@@ -25,10 +25,33 @@
 #define APP_MENU_APPLICATIONS_3             CompassApp
 #define APP_MENU_APPLICATIONS_4             FileManagerApp
 #define APP_MENU_APPLICATIONS_5             I2CScannerApp
-//#define APP_MENU_APPLICATIONS_6             InternetApp
-//#define APP_MENU_APPLICATIONS_7             SettingsApp
-//#define APP_MENU_APPLICATIONS_8             SimpleGameApp
-//#define APP_MENU_APPLICATIONS_9             TestApplicationApp
+#define APP_MENU_APPLICATIONS_6             InternetApp
+#define APP_MENU_APPLICATIONS_7             SettingsApp
+#define APP_MENU_APPLICATIONS_8             SimpleGameApp
+#define APP_MENU_APPLICATIONS_9             TestApplicationApp
+
+#define APP_MENU_APPLICATIONS_10            ClockApp
+#define APP_MENU_APPLICATIONS_11            ClockApp
+#define APP_MENU_APPLICATIONS_12            ClockApp
+#define APP_MENU_APPLICATIONS_13            ClockApp
+#define APP_MENU_APPLICATIONS_14            ClockApp
+#define APP_MENU_APPLICATIONS_15            ClockApp
+#define APP_MENU_APPLICATIONS_16            ClockApp
+#define APP_MENU_APPLICATIONS_17            ClockApp
+#define APP_MENU_APPLICATIONS_18            ClockApp
+#define APP_MENU_APPLICATIONS_19            ClockApp
+#define APP_MENU_APPLICATIONS_20            ClockApp
+#define APP_MENU_APPLICATIONS_21            ClockApp
+#define APP_MENU_APPLICATIONS_22            ClockApp
+#define APP_MENU_APPLICATIONS_23            ClockApp
+#define APP_MENU_APPLICATIONS_24            ClockApp
+#define APP_MENU_APPLICATIONS_25            ClockApp
+#define APP_MENU_APPLICATIONS_26            ClockApp
+#define APP_MENU_APPLICATIONS_27            ClockApp
+#define APP_MENU_APPLICATIONS_28            ClockApp
+#define APP_MENU_APPLICATIONS_29            ClockApp
+#define APP_MENU_APPLICATIONS_30            ClockApp
+#define APP_MENU_APPLICATIONS_31            ClockApp
 
 // # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # //
 
@@ -176,47 +199,198 @@ const unsigned char*  appNameClass::getApplicationIcon(int num){
 
 Application *getApp(byte i){  
     if (i==0) return new APP_MENU_APPLICATIONS_0; 
-    else if (i==1) return new APP_MENU_APPLICATIONS_1; 
-    else if (i==2) return new APP_MENU_APPLICATIONS_2; 
-    else if (i==3) return new APP_MENU_APPLICATIONS_3; 
-    else if (i==4) return new APP_MENU_APPLICATIONS_4; 
-    else if (i==5) return new APP_MENU_APPLICATIONS_5; 
-    //else if (i==6) return new APP_MENU_APPLICATIONS_6; 
-    //else if (i==7) return new APP_MENU_APPLICATIONS_7; 
-    //else if (i==8) return new APP_MENU_APPLICATIONS_8; 
-    //else if (i==9) return new APP_MENU_APPLICATIONS_9; 
-    // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD YOUR APP HERE
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 1
+      else if (i==1) return new APP_MENU_APPLICATIONS_1; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 2
+      else if (i==2) return new APP_MENU_APPLICATIONS_2; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 3
+      else if (i==3) return new APP_MENU_APPLICATIONS_3; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 4
+      else if (i==4) return new APP_MENU_APPLICATIONS_4; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 5
+      else if (i==5) return new APP_MENU_APPLICATIONS_5; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 6
+      else if (i==6) return new APP_MENU_APPLICATIONS_6; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 7
+      else if (i==7) return new APP_MENU_APPLICATIONS_7; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 8
+      else if (i==8) return new APP_MENU_APPLICATIONS_8; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 9
+      else if (i==9) return new APP_MENU_APPLICATIONS_9; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 10
+      else if (i==10) return new APP_MENU_APPLICATIONS_10; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 11
+      else if (i==11) return new APP_MENU_APPLICATIONS_11; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 12
+      else if (i==12) return new APP_MENU_APPLICATIONS_12; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 13
+      else if (i==13) return new APP_MENU_APPLICATIONS_13; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 14
+      else if (i==14) return new APP_MENU_APPLICATIONS_14; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 15
+      else if (i==15) return new APP_MENU_APPLICATIONS_15; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 16
+      else if (i==16) return new APP_MENU_APPLICATIONS_16; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 17
+      else if (i==17) return new APP_MENU_APPLICATIONS_17; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 18
+      else if (i==18) return new APP_MENU_APPLICATIONS_18; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 19
+      else if (i==19) return new APP_MENU_APPLICATIONS_19; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 20
+      else if (i==20) return new APP_MENU_APPLICATIONS_20; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 21
+      else if (i==21) return new APP_MENU_APPLICATIONS_21; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 22
+      else if (i==22) return new APP_MENU_APPLICATIONS_22; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 23
+      else if (i==23) return new APP_MENU_APPLICATIONS_23; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 24
+      else if (i==24) return new APP_MENU_APPLICATIONS_24; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 25
+      else if (i==25) return new APP_MENU_APPLICATIONS_25; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 26
+      else if (i==26) return new APP_MENU_APPLICATIONS_26; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 27
+      else if (i==27) return new APP_MENU_APPLICATIONS_27; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 28
+      else if (i==28) return new APP_MENU_APPLICATIONS_28; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 29
+      else if (i==29) return new APP_MENU_APPLICATIONS_29; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 30
+      else if (i==30) return new APP_MENU_APPLICATIONS_30; 
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 31
+      else if (i==31) return new APP_MENU_APPLICATIONS_31; 
+    #endif
     else return new appNameClass;
 }
 
 const byte *getAppParams(byte i, byte type){
-    if(i==0){
-        APP_MENU_APPLICATIONS_0 *app; return ((*app).getParams(type));
-    }else if(i==1){
-        APP_MENU_APPLICATIONS_1 *app; return ((*app).getParams(type));
-    }else if(i==2){
-        APP_MENU_APPLICATIONS_2 *app; return ((*app).getParams(type));
-    }else if(i==3){
-        APP_MENU_APPLICATIONS_3 *app; return ((*app).getParams(type));
-    }else if(i==4){
-        APP_MENU_APPLICATIONS_4 *app; return ((*app).getParams(type));
-    }else if(i==5){
-        APP_MENU_APPLICATIONS_5 *app; return ((*app).getParams(type));
-    /*}else if(i==6){
-        APP_MENU_APPLICATIONS_6 *app; return ((*app).getParams(type));
-    }else if(i==7){
-        APP_MENU_APPLICATIONS_7 *app; return ((*app).getParams(type));
-    }else if(i==8){
-        APP_MENU_APPLICATIONS_8 *app; return ((*app).getParams(type));
-    }else if(i==9){
-        APP_MENU_APPLICATIONS_9 *app; return ((*app).getParams(type));
-    }
-    // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD YOUR APP HERE
-    else{
-        appNameClass *app; return ((*app).getParams(type));
-        */
-    }
-    return 0;
+    if(i==0){ APP_MENU_APPLICATIONS_0 *app; return ((*app).getParams(type));
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 1
+      }else if(i==1){ APP_MENU_APPLICATIONS_1 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 2
+      }else if(i==2){ APP_MENU_APPLICATIONS_2 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 3
+      }else if(i==3){ APP_MENU_APPLICATIONS_3 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 4
+      }else if(i==4){ APP_MENU_APPLICATIONS_4 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 5
+      }else if(i==5){ APP_MENU_APPLICATIONS_5 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 6
+      }else if(i==6){ APP_MENU_APPLICATIONS_6 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 7
+      }else if(i==7){ APP_MENU_APPLICATIONS_7 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 8
+      }else if(i==8){ APP_MENU_APPLICATIONS_8 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 9
+      }else if(i==9){ APP_MENU_APPLICATIONS_9 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 10
+      }else if(i==10){ APP_MENU_APPLICATIONS_10 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 11
+      }else if(i==11){ APP_MENU_APPLICATIONS_11 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 12
+      }else if(i==12){ APP_MENU_APPLICATIONS_12 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 13
+      }else if(i==13){ APP_MENU_APPLICATIONS_13 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 14
+      }else if(i==14){ APP_MENU_APPLICATIONS_14 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 15
+      }else if(i==15){ APP_MENU_APPLICATIONS_15 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 16
+      }else if(i==16){ APP_MENU_APPLICATIONS_16 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 17
+      }else if(i==17){ APP_MENU_APPLICATIONS_17 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 18
+      }else if(i==18){ APP_MENU_APPLICATIONS_18 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 19
+      }else if(i==19){ APP_MENU_APPLICATIONS_19 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 20
+      }else if(i==20){ APP_MENU_APPLICATIONS_20 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 21
+      }else if(i==21){ APP_MENU_APPLICATIONS_21 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 22
+      }else if(i==22){ APP_MENU_APPLICATIONS_22 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 23
+      }else if(i==23){ APP_MENU_APPLICATIONS_23 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 24
+      }else if(i==24){ APP_MENU_APPLICATIONS_24 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 25
+      }else if(i==25){ APP_MENU_APPLICATIONS_25 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 26
+      }else if(i==26){ APP_MENU_APPLICATIONS_26 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 27
+      }else if(i==27){ APP_MENU_APPLICATIONS_27 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 28
+      }else if(i==28){ APP_MENU_APPLICATIONS_28 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 29
+      }else if(i==29){ APP_MENU_APPLICATIONS_29 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 30
+      }else if(i==30){ APP_MENU_APPLICATIONS_30 *app; return ((*app).getParams(type));
+    #endif
+    #if APP_MENU_APPLICATIONS_QUANTITY >= 31
+      }else if(i==31){ APP_MENU_APPLICATIONS_31 *app; return ((*app).getParams(type));
+    #endif
+    }else return 0;
 }
 
 /*
