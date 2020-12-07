@@ -84,7 +84,7 @@ void core_views_draw_active_page(
 }
 
 int core_views_pages_list_get_element_position_x(int pages_quantity, int position){
-    return ( (pages_quantity%2==1) ? 0 : (-CORE_VIEWS_PAGES_LIST_BETWEEN_ELEMENTS_SIZE/2) ) + (-pages_quantity/2 + position) * CORE_VIEWS_PAGES_LIST_BETWEEN_ELEMENTS_SIZE;
+    return ( (pages_quantity%2==1) ? (-pages_quantity/2 + position) * CORE_VIEWS_PAGES_LIST_BETWEEN_ELEMENTS_SIZE : -((-CORE_VIEWS_PAGES_LIST_BETWEEN_ELEMENTS_SIZE/2) ) + (-pages_quantity/2 + position) * CORE_VIEWS_PAGES_LIST_BETWEEN_ELEMENTS_SIZE);
 }
 
 /*

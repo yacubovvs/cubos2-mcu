@@ -30,15 +30,6 @@
 #define APP_MENU_APPLICATIONS_5             I2CScannerApp
 #define APP_MENU_APPLICATIONS_6             InternetApp
 
-#define APP_MENU_APPLICATIONS_7             FileManagerApp
-#define APP_MENU_APPLICATIONS_8             I2CScannerApp
-#define APP_MENU_APPLICATIONS_9             InternetApp
-
-#define APP_MENU_APPLICATIONS_10            ClockApp
-#define APP_MENU_APPLICATIONS_11            ClockApp
-#define APP_MENU_APPLICATIONS_12            ClockApp
-#define APP_MENU_APPLICATIONS_13            ClockApp
-
 //#define APP_MENU_APPLICATIONS_7             SettingsApp
 //#define APP_MENU_APPLICATIONS_8             SimpleGameApp
 //#define APP_MENU_APPLICATIONS_9             TestApplicationApp
@@ -305,10 +296,14 @@ void appNameClass::drawActiveAppFrame(boolean draw){
   int x1 = x0+SINGLE_ELEMENT_REAL_WIDTH;
   int y1 = y0+SINGLE_ELEMENT_REAL_HEIGHT;
 
-  if(draw) setDrawColor(128, 128, 128);
+  if(draw) setDrawColor(196, 196, 196);
   else setDrawColor(getBackgroundColor_red(), getBackgroundColor_green(), getBackgroundColor_blue());
 
-  drawRect(x0+10, y0+10, x1-10, y1-10);
+  for(byte i=0; i<4; i++){
+    byte delta = 5+i;
+    drawRect(x0+delta, y0+delta, x1-delta, y1-delta);  
+  }
+  
 }
 
 void appNameClass::drawIcons(boolean draw){
