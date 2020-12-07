@@ -8,9 +8,8 @@
 
 #define serialDebug
 
-
-#define SCREEN_WIDTH            320     // Note: x-coordinates go wide
-#define SCREEN_HEIGHT           240     // Note: y-coordinates go high
+#define SCREEN_WIDTH            320     // Screnn resolution width
+#define SCREEN_HEIGHT           240     // Screnn resolution height
 
 #define FONT_CHAR_WIDTH         6     // Font letter size width
 #define FONT_CHAR_HEIGHT        8     // Font letter size height

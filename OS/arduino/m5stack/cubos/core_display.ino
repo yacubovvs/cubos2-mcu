@@ -3,6 +3,28 @@
                                   DISPLAY FUNCTIONS
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
 */
+byte background_red = 0;
+byte background_green = 0;
+byte background_blue = 0;
+
+byte getBackgroundColor_red(){
+  return background_red;
+} 
+
+byte getBackgroundColor_green(){
+  return background_green;
+} 
+
+byte getBackgroundColor_blue(){
+  return background_blue;
+} 
+
+void setBackgroundColor(byte r, byte g, byte b){
+  background_red    = r;
+  background_green  = g;
+  background_blue   = b;
+  
+} 
 
 //////////////////////////////////////////////////
 // Function needed for CubOS
@@ -186,7 +208,7 @@ void drawRect_custom( int x0, int y0, int x1, int y1, int x2, int y2, int x3, in
   }
 }
 
-void drawIcon(const unsigned char* data, int x, int y){
+void drawIcon(boolean draw, const unsigned char* data, int x, int y){
 
   /*
   ################################################
@@ -219,7 +241,8 @@ void drawIcon(const unsigned char* data, int x, int y){
         byte green  = readRawChar(data, readPosition); 
         byte blue   = readRawChar(data, readPosition); 
 
-        setDrawColor(red, green, blue);
+        if(draw) setDrawColor(red, green, blue);
+        else setDrawColor(getBackgroundColor_red(), getBackgroundColor_green(), getBackgroundColor_blue());
         
         icon_x = 0;
         icon_y = 0;

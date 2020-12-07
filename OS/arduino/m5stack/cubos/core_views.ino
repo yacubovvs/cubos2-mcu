@@ -57,7 +57,8 @@ void core_views_draw_pages_list_simple(
     //SCREEN_WIDTH
     //SCREEN_HEIGHT
 
-    setDrawColor(128, 128, 128);
+    if(draw) setDrawColor(128, 128, 128);
+    else setDrawColor(getBackgroundColor_red(), getBackgroundColor_green(), getBackgroundColor_blue());
 
     for(int i=0; i<pages_quantity; i++){
         int element_x = SCREEN_WIDTH/2 + core_views_pages_list_get_element_position_x(pages_quantity, i);
@@ -73,7 +74,8 @@ void core_views_draw_active_page(
     byte position
 ){
 
-    setDrawColor(0, 255, 0);
+    if(draw) setDrawColor(0, 255, 0);
+    else setDrawColor(getBackgroundColor_red(), getBackgroundColor_green(), getBackgroundColor_blue());
 
     int element_x = SCREEN_WIDTH/2 + core_views_pages_list_get_element_position_x(pages_quantity, position);
     int element_y = y0;
@@ -81,12 +83,8 @@ void core_views_draw_active_page(
 
 }
 
-int core_views_pages_list_draw_element_position_x(boolean draw, int x, int y){
-    
-}
-
 int core_views_pages_list_get_element_position_x(int pages_quantity, int position){
-    return ( (pages_quantity%2==1) ? 0 : (-CORE_VIEWS_PAGES_LIST_BETWEEN_ELEMENTS_SIZE/2) ) - (-pages_quantity/2 + position) * CORE_VIEWS_PAGES_LIST_BETWEEN_ELEMENTS_SIZE;
+    return ( (pages_quantity%2==1) ? 0 : (-CORE_VIEWS_PAGES_LIST_BETWEEN_ELEMENTS_SIZE/2) ) + (-pages_quantity/2 + position) * CORE_VIEWS_PAGES_LIST_BETWEEN_ELEMENTS_SIZE;
 }
 
 /*
@@ -112,17 +110,21 @@ int core_views_pages_list_get_element_position_x(int pages_quantity, int positio
 
 void core_views_draw_app_icon(boolean draw, int x, int y, const byte* title, const unsigned char* icon){
     // image
-    setDrawColor(255, 255, 255);
+    
+    //if(draw) setDrawColor(0, 255, 0);
+    //else setDrawColor(getBackgroundColor_red(), getBackgroundColor_green(), getBackgroundColor_blue());
     //drawRect(x-CORE_VIEWS_APPICON_IMAGE_WIDTH/2, y-CORE_VIEWS_APPICON_IMAGE_HEIGHT/2 + CORE_VIEWS_APPICON_IMAGE_Y_OFFSET, x+CORE_VIEWS_APPICON_IMAGE_WIDTH/2, y+CORE_VIEWS_APPICON_IMAGE_HEIGHT/2 + CORE_VIEWS_APPICON_IMAGE_Y_OFFSET);
 
-    drawIcon(icon, x-CORE_VIEWS_APPICON_IMAGE_WIDTH/2, y-CORE_VIEWS_APPICON_IMAGE_HEIGHT/2 + CORE_VIEWS_APPICON_IMAGE_Y_OFFSET);
+    drawIcon(draw, icon, x-CORE_VIEWS_APPICON_IMAGE_WIDTH/2, y-CORE_VIEWS_APPICON_IMAGE_HEIGHT/2 + CORE_VIEWS_APPICON_IMAGE_Y_OFFSET);
 
     //Serial.println(x);
     //Serial.println(y);
     //Serial.println((char*)icon);
 
     // title
-    setDrawColor(255, 255, 255);
+    if(draw) setDrawColor(255, 255, 255);
+    else setDrawColor(getBackgroundColor_red(), getBackgroundColor_green(), getBackgroundColor_blue());
+
     drawString_centered((char*)title, x, y + CORE_VIEWS_APPICON_TITLE_Y_OFFSET);
 }
 
