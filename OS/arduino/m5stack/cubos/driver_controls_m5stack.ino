@@ -38,6 +38,10 @@ void driver_controls_loop(){
     if(M5.BtnA.isPressed() && MILLIS() - driver_controls_m5stack_pressStartBtn_A > CONTROLS_LONG_PRESS_TIMEOUT && driver_controls_m5stack_LongPressPressed_Btn_A==false){
         driver_controls_m5stack_LongPressPressed_Btn_A = true;
         onButtonEvent(EVENT_BUTTON_LONG_PRESS, 0);
+        
+        #ifdef toDefaultApp_onLeftLongPress
+            startApp(-1);
+        #endif
     }
 
     if(M5.BtnB.isPressed() && MILLIS() - driver_controls_m5stack_pressStartBtn_B > CONTROLS_LONG_PRESS_TIMEOUT && driver_controls_m5stack_LongPressPressed_Btn_B==false){

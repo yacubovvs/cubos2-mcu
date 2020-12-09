@@ -31,6 +31,10 @@ void setup_displayDriver(){
   M5.Lcd.setCursor(0, 0);
 }
 
+void fillScreen(byte red, byte green, byte blue){
+  M5.Lcd.fillScreen(get_m5ColorFromPallette(red, green, blue));
+}
+
 void setPixel(int x, int y){
 	M5.Lcd.drawPixel(x, y, current_drawColor);
 }

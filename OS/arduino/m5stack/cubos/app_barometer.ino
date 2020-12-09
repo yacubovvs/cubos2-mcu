@@ -8,7 +8,7 @@ class appNameClass: public Application{
         virtual void onEvent(byte event, int val1, int val2) override;
 
         void onCreate();
-        appNameClass(){ onCreate(); };
+        appNameClass(){ fillScreen(0, 0, 0); super_onCreate(); onCreate(); };
         static unsigned const char* getParams(const unsigned char type){
             switch(type){ 
               case PARAM_TYPE_NAME: return (unsigned char*)appName; 
@@ -21,8 +21,7 @@ class appNameClass: public Application{
 
 void appNameClass::onCreate(){
 
-    // If not full screen:
-    core_views_statusBar_draw(); 
+    
 
     /*
         Write you code onCreate here

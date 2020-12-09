@@ -29,10 +29,9 @@
 #define APP_MENU_APPLICATIONS_4             FileManagerApp
 #define APP_MENU_APPLICATIONS_5             I2CScannerApp
 #define APP_MENU_APPLICATIONS_6             InternetApp
-
-//#define APP_MENU_APPLICATIONS_7             SettingsApp
-//#define APP_MENU_APPLICATIONS_8             SimpleGameApp
-//#define APP_MENU_APPLICATIONS_9             TestApplicationApp
+#define APP_MENU_APPLICATIONS_7             SettingsApp
+#define APP_MENU_APPLICATIONS_8             SimpleGameApp
+#define APP_MENU_APPLICATIONS_9             TestApplicationApp
 
 /*
     # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -180,7 +179,7 @@ class appNameClass: public Application{
         virtual void onEvent(byte event, int val1, int val2) override;
 
         void onCreate();
-        appNameClass(){ onCreate(); };
+        appNameClass(){ fillScreen(0, 0, 0); super_onCreate(); onCreate(); };
         static unsigned const char* getParams(const unsigned char type){
           switch(type){ 
             case PARAM_TYPE_NAME: return (unsigned char*)appName; 
@@ -242,9 +241,6 @@ void appNameClass::onCreate(){
     #endif
     // */
 
-    // Drawing page list
-    setBackgroundColor(0, 0, 0);
-
     core_views_draw_pages_list_simple(true, PAGES_LIST_POSITION, TOTAL_PAGES);
     core_views_draw_active_page(true, PAGES_LIST_POSITION, TOTAL_PAGES, 0);
 
@@ -265,7 +261,7 @@ void appNameClass::updateActiveAppIndex(int newSelectedAppIndex){
     if( (int)((this->selectedAppIndex)/APPS_ON_SINGLE_PAGE) != (int)((newSelectedAppIndex)/APPS_ON_SINGLE_PAGE)){
       // update page
       #ifdef serialDebug
-        Serial.println("Update page");
+        Serial.println("Updating page");
       #endif
       this->drawIcons(false);
       core_views_draw_active_page(false, PAGES_LIST_POSITION, TOTAL_PAGES, (int)(this->selectedAppIndex/APPS_ON_SINGLE_PAGE));
@@ -278,11 +274,6 @@ void appNameClass::updateActiveAppIndex(int newSelectedAppIndex){
 
     // update selected app frame
     this->drawActiveAppFrame(true);
-
-    #ifdef serialDebug
-      Serial.print(this->selectedAppIndex);
-      Serial.println(" Update selected app frame");
-    #endif
   }
 }
 
@@ -319,11 +310,6 @@ void appNameClass::drawIcons(boolean draw){
 
             int app_num = y_position*(SINGLE_ELEMENTS_IN_Y+1) + x_position + APPS_ON_SINGLE_PAGE*(int)(this->selectedAppIndex/APPS_ON_SINGLE_PAGE);
 
-            #ifdef serialDebug
-              Serial.print("App_num: ");
-              Serial.println(app_num);
-            #endif
-
             if(app_num<APP_MENU_APPLICATIONS_QUANTITY){
               core_views_draw_app_icon(
                 draw, 
@@ -347,15 +333,19 @@ void appNameClass::onLoop(){
 
 void appNameClass::onDestroy(){
     #ifdef serialDebug
-        Serial.println("Application on onDestroy");
+      Serial.println("Application on onDestroy");
     #endif
 
-    // Clear active page selector
-    core_views_draw_pages_list_simple(false, PAGES_LIST_POSITION, TOTAL_PAGES);
-    // Clear page selector
-    core_views_draw_active_page(false, PAGES_LIST_POSITION, TOTAL_PAGES, 1);
-    // Clear icons
-    this->drawIcons(false);
+    /*
+      // Clear active page selector
+      core_views_draw_pages_list_simple(false, PAGES_LIST_POSITION, TOTAL_PAGES);
+      // Clear page selector
+      core_views_draw_active_page(false, PAGES_LIST_POSITION, TOTAL_PAGES, 1);
+      
+      drawActiveAppFrame(false);
+      // Clear icons
+      this->drawIcons(false);
+    */
 }
 
 void appNameClass::onEvent(byte event, int val1, int val2){
@@ -363,12 +353,17 @@ void appNameClass::onEvent(byte event, int val1, int val2){
     if(event==EVENT_BUTTON_PRESSED){
       switch(val1){
         case 0:
-          this->updateActiveAppIndex(selectedAppIndex-1);
+          this->updateActiveAppIndex(this->selectedAppIndex-1);
           break;
         case 1:
+          #ifdef serialDebug
+            Serial.print("Selected app to open ");
+            Serial.println(this->selectedAppIndex);
+          #endif
+          startApp(this->selectedAppIndex);
           break;
         case 2:
-          this->updateActiveAppIndex(selectedAppIndex+1);
+          this->updateActiveAppIndex(this->selectedAppIndex+1);
           break;
       }
     }else if(event==EVENT_BUTTON_RELEASED){
@@ -495,7 +490,7 @@ Application *getApp(byte i){
     else return new appNameClass;
 }
 
-const byte *getAppParams(byte i, byte type){
+const byte *getAppParams(char i, byte type){
     if(i==0){ APP_MENU_APPLICATIONS_0 *app; return ((*app).getParams(type));
     #if APP_MENU_APPLICATIONS_QUANTITY > 1
       }else if(i==1){ APP_MENU_APPLICATIONS_1 *app; return ((*app).getParams(type));
@@ -591,6 +586,11 @@ const byte *getAppParams(byte i, byte type){
       }else if(i==31){ APP_MENU_APPLICATIONS_31 *app; return ((*app).getParams(type));
     #endif
     }else return 0;
+}
+
+void startApp(char num){
+  currentApp->onDestroy();
+  currentApp = getApp(num);
 }
 
 /*

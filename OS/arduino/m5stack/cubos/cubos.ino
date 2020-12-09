@@ -26,10 +26,49 @@
 #define colorScreen                     // Screen is colored
 #define noAnimation                     // Caurse of framebuffer type
 
+#define toDefaultApp_onLeftLongPress
+
 /*
     ############################################################################################
     #                                                                                          #
     #                                    M5STACK SETTINGS -                                    #
+    #                                                                                          #
+    ############################################################################################
+*/
+
+/*
+    ############################################################################################
+    #                                     PREDEFINE +                                          #
+    ############################################################################################
+*/
+
+void core_views_statusBar_draw();
+void setBackgroundColor(byte r, byte g, byte b);
+void drawRect(int x0, int y0, int x1, int y1, boolean fill);
+void setDrawColor(byte red, byte green, byte blue);
+void fillScreen(byte red, byte green, byte blue);
+
+/*
+    ############################################################################################
+    #                                     PREDEFINE -                                          #
+    ############################################################################################
+*/
+
+/*
+    ############################################################################################
+    #                                                                                          #
+    #                                          STYLE +                                         #
+    #                                                                                          #
+    ############################################################################################
+*/
+
+// STATUS BAR 
+#define STYLE_STATUSBAR_HEIGHT  40
+
+/*
+    ############################################################################################
+    #                                                                                          #
+    #                                          STYLE -                                         #
     #                                                                                          #
     ############################################################################################
 */
@@ -43,7 +82,6 @@
 */
 
 
-
 /////////////////////////////////////
 // APPLICATION CLASS
 
@@ -52,13 +90,19 @@ class Application{
     boolean showStatusBar = false;
 
   
-    int scroll_x          = 0;
-    int scroll_y          = 0;
-    int scroll_to_x     = 0;
-    int scroll_to_y     = 0;
-    virtual void onLoop() = 0;
-    virtual void onDestroy() = 0;
+    int scroll_x              = 0;
+    int scroll_y              = 0;
+    int scroll_to_x           = 0;
+    int scroll_to_y           = 0;
+    bool isfullScreen         = false;
+    
+    virtual void onLoop()     = 0;
+    virtual void onDestroy()  = 0;
     virtual void onEvent(byte event, int val1, int val2) = 0;
+
+    void super_onCreate(){
+      if(!this->isfullScreen) core_views_statusBar_draw();
+    }
 
     void loop_app(){
       onLoop();
@@ -123,25 +167,6 @@ void loop(){
 void onButtonEvent(byte event, int button){
   currentApp->onEvent(event, button, 0);
 }
-
-/*
-    ############################################################################################
-    #                                                                                          #
-    #                                          STYLE +                                         #
-    #                                                                                          #
-    ############################################################################################
-*/
-
-// STATUS BAR 
-#define STYLE_STATUSBAR_HEIGHT  40
-
-/*
-    ############################################################################################
-    #                                                                                          #
-    #                                          STYLE -                                         #
-    #                                                                                          #
-    ############################################################################################
-*/
 
 /*
     ############################################################################################
