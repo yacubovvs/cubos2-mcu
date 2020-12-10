@@ -128,6 +128,19 @@ void core_views_draw_app_icon(boolean draw, int x, int y, const byte* title, con
     drawString_centered((char*)title, x, y + CORE_VIEWS_APPICON_TITLE_Y_OFFSET);
 }
 
+void drawMenuElement(bool draw, uint16_t x, uint16_t y, uint16_t width, uint16_t height, const unsigned char* icon, String string1, String string2){
+    if(draw) setDrawColor(255, 255, 255);
+    else setDrawColor(getBackgroundColor_red(), getBackgroundColor_green(), getBackgroundColor_blue());
+
+    drawRect( x, y, x + width, y + height, false);
+
+    drawString(string1, x + 36 + 10, y + height/3 - FONT_CHAR_HEIGHT/2);
+    //drawString_rightAlign(string2, x + width - 15, y + height*2/3 - FONT_CHAR_HEIGHT/2);
+    drawString(string2, x + 36 + 10, y + height*2/3 - FONT_CHAR_HEIGHT/2);
+
+    drawIcon(draw, icon, x + 10, y + height/2 - 16/2);
+}
+
 /*
     ############################################################################################
     #                                                                                          #

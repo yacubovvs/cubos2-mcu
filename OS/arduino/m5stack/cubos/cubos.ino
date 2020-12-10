@@ -28,6 +28,9 @@
 
 #define toDefaultApp_onLeftLongPress
 
+#define STARTING_APP_NUMM   -1    // for Mainmenu (default app)
+#define STARTING_APP_NUMM   7     // for App number 7
+
 /*
     ############################################################################################
     #                                                                                          #
@@ -95,7 +98,7 @@ class Application{
     int scroll_to_x           = 0;
     int scroll_to_y           = 0;
     bool isfullScreen         = false;
-    
+
     virtual void onLoop()     = 0;
     virtual void onDestroy()  = 0;
     virtual void onEvent(byte event, int val1, int val2) = 0;
@@ -151,7 +154,8 @@ void setup()
     Serial.begin(115200);
   #endif
   setup_displayDriver();
-  currentApp = getApp(-1);
+  currentApp = getApp(STARTING_APP_NUMM);
+  
 
 }
 

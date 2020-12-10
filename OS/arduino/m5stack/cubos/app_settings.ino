@@ -15,14 +15,20 @@ class appNameClass: public Application{
               default: return (unsigned char*)""; }
         };
         const static byte icon[] PROGMEM;
+
+        const static byte icon_sound[]      PROGMEM;
+        const static byte icon_light[]      PROGMEM;
+        const static byte icon_time[]       PROGMEM;
+        const static byte icon_date[]       PROGMEM;
+        const static byte icon_battery[]    PROGMEM;
       
 };
 
 void appNameClass::onCreate(){ 
     
-    Serial.println("On app created");
-    setDrawColor(255, 255, 255);
-    drawString("Settings app", 5, STYLE_STATUSBAR_HEIGHT + 5);
+    //Serial.println("On app created");
+    
+    drawMenuElement(true, 35, STYLE_STATUSBAR_HEIGHT + 15, SCREEN_WIDTH-10, 45, this->icon_sound, "String 1", "String 2");
 
     /*
         Write you code onCreate here
@@ -54,6 +60,12 @@ void appNameClass::onEvent(byte event, int val1, int val2){
     }
     
 }
+
+const byte appNameClass::icon_sound[] PROGMEM = {
+    0x02,0x01,0x02,0x10,0x02,0x10,0x04,0xff,0xff,0xff,0x01,0x01,0x03,0x01,0x07,0x05,
+    0x0F,0x05,0x1F,0x15,0xBF,0x15,0xBF,0x55,0xBF,0x55,0xBF,0x55,0xBF,0x55,0xBF,0x15,
+    0x1F,0x15,0x0F,0x05,0x07,0x05,0x03,0x01,0x01,0x01,
+};
 
 const byte appNameClass::icon[] PROGMEM = {
     
