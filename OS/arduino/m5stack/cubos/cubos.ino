@@ -29,7 +29,7 @@
 #define toDefaultApp_onLeftLongPress
 
 #define STARTING_APP_NUMM   -1    // for Mainmenu (default app)
-#define STARTING_APP_NUMM   7     // for App number 7
+//#define STARTING_APP_NUMM   7     // for App number 7
 
 /*
     ############################################################################################
