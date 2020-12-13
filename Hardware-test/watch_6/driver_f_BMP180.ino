@@ -46,7 +46,22 @@ double get_altitude_def(){
   return ((double)barometer_Pressure_Current - get_barometer_mm_Hg())*10;
 }
 
+void driver_bmp180_test_start(){
+	tft.fillScreen(BLACK);
+	tft.setCursor(0, 3); 
+	tft.println("BMP180 Altitude:");
+	tft.println("");
+}
+
+boolean driver_bmp180_test(){
+  tft.setCursor(0, 32);
+  tft.setTextColor(WHITE, BLACK); 
+  tft.print(get_altitude());
+}
+
 boolean driver_bmp180_loop(){
+  
+
   char status;
   
   status = pressure.startTemperature();
@@ -66,8 +81,7 @@ boolean driver_bmp180_loop(){
         delay(status);
 
         status = pressure.getPressure(barometer_Pressure,barometer_Temperature);
-        if (status != 0)
-        {
+        if (status != 0){
 
           //barometer_Altitude
           
@@ -76,6 +90,7 @@ boolean driver_bmp180_loop(){
 
           //drawIntString( ((long)(barometer_Pressure * 10.0)), 20);
           //drawDebugString((int)(barometer_Temperature*1000), 30);
+
 
           return true;
           

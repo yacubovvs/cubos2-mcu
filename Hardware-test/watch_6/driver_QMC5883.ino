@@ -43,6 +43,20 @@ void driver_qmc5883_sleep(){
   	qmc.setMode(Mode_Standby,ODR_200Hz,RNG_8G,OSR_256);
 }
 
+void driver_qmc5883_test_start(){
+    tft.fillScreen(BLACK);
+	tft.setCursor(0, 3); 
+	tft.println("QMC5883 Azimuth:");
+	tft.println("");
+}
+
+void driver_qmc5883_test(){
+    tft.setCursor(0, 32);
+    tft.setTextColor(WHITE, BLACK); 
+    tft.print(driver_qmc5883_get_azimuth());
+    tft.println("           ");
+}
+
 void driver_qmc5883_loop(){
 
     qmc.read(&driver_qmc5883_x, &driver_qmc5883_y, &driver_qmc5883_z, &azimuth);

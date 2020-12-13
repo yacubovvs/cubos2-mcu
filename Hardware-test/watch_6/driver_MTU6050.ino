@@ -1,3 +1,4 @@
+
 // MPU-6050 Accelerometer + Gyro
 // -----------------------------
 //
@@ -53,11 +54,6 @@
 // and offsets.
 //
 
-/*
-int driver_accelerometer_x_accel = 0;
-int driver_accelerometer_y_accel = 0;
-int driver_accelerometer_z_accel = 0;
-*/
 
 #define MPU6050_AUX_VDDIO          0x01   // R/W
 #define MPU6050_SMPLRT_DIV         0x19   // R/W
@@ -736,6 +732,13 @@ bool driver_MTU6050_device_is_horizontally(){
 	else return false;
 }
 
+void driver_MTU6050_test_start(){
+	tft.fillScreen(BLACK);
+	tft.setCursor(0, 3); 
+	tft.println("MTU6050 Altitude:");
+	tft.println("");
+}
+
 void driver_MTU6050_test(){
 	Serial.println(accel_t_gyro.value.x_accel);
 	Serial.println(accel_t_gyro.value.y_accel);
@@ -817,15 +820,6 @@ void driver_MTU6050_loop()
 	//Serial.print(F(", "));
 	//Serial.println(F(""));
 
-	/*
-	drawDebugString(accel_t_gyro.value.x_gyro, 10); 
-	drawDebugString(accel_t_gyro.value.y_gyro, 20); 
-	drawDebugString(accel_t_gyro.value.z_gyro, 30);
-	drawDebugString(accel_t_gyro.value.x_accel, 10); 
-	drawDebugString(accel_t_gyro.value.y_accel, 20); 
-	drawDebugString(accel_t_gyro.value.z_accel, 30);  
-	*/
-	
 	//delay(1000);
 }
  
