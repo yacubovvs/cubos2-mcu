@@ -36,17 +36,56 @@ void setup() {
 	//driver_serialport_println("MTU6050 inited");
 
 	//i2c_scanner_test();
+	driver_DS3231SN_setup();
 }
 
 long timer = millis();
 void loop() {
+	driver_gpio_btn_test_start();
 
+	while(1){
+		driver_DS3231SN_start_1sec_wakeupTimer();
+		timer = millis();
+		while(digitalRead(16)){
+			driver_gpio_btn_test();
+		}
+
+		pinMode(12, OUTPUT);
+        digitalWrite(12, 1);
+        delay(1000);
+        digitalWrite(12, 0);
+		driver_DS3231SN_stop_wakeupTimer();
+		timer = millis();
+		while(millis()-timer < 5000){
+			driver_gpio_btn_test();
+		}
+
+		driver_DS3231SN_start_1min_wakeupTimer();
+		timer = millis();
+		while(digitalRead(16)){
+			driver_gpio_btn_test();
+		}
+
+		pinMode(12, OUTPUT);
+        digitalWrite(12, 1);
+        delay(1000);
+        digitalWrite(12, 0);
+		driver_DS3231SN_stop_wakeupTimer();
+		timer = millis();
+		while(millis()-timer < 5000){
+			driver_gpio_btn_test();
+		}
+	}
+	
+
+	/*
 	timer = millis();
 	driver_gpio_btn_test_start();
-    //while(millis()-timer < 5000){
-	while(true){
+    while(millis()-timer < 5000){
+	//while(true){
 		driver_gpio_btn_test();
 	}
+	*/
 
 	/*
 	i2c_scanner_test();
