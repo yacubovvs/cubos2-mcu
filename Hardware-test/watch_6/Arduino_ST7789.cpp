@@ -288,8 +288,16 @@ void Arduino_ST7789::commonInit(const uint8_t *cmdList) {
     displayInit(cmdList);
 }
 
-void Arduino_ST7789::setRotation(uint8_t m) {
+void Arduino_ST7789::sleep() {
+  writecommand(ST7789_SLPIN);
+}
 
+void Arduino_ST7789::wakeup() {
+
+}
+
+void Arduino_ST7789::setRotation(uint8_t m) {
+  
   writecommand(ST7789_MADCTL);
   rotation = m % 4; // can't be higher than 3
   switch (rotation) {

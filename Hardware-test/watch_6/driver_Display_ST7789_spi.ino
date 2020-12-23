@@ -17,6 +17,28 @@ void driver_display_st7789_spi_setup(){
 
 }
 
+void driver_display_st7789_sleep(){
+  tft.sleep();
+  digitalWrite(0,0);
+}
+
+void driver_display_st7789_wakeup(){
+  tft.wakeup();
+  driver_display_st7789_spi_setup();
+}
+
+void driver_display_st7789_powerOff(){
+  tft.sleep();
+  digitalWrite(0,0);
+  //delay(1000);
+}
+
+void driver_display_st7789_powerOn(){
+  digitalWrite(0,1);
+  driver_display_st7789_spi_setup();
+}
+
+
 void driver_display_st7789_spi_test_start(){
 
 }

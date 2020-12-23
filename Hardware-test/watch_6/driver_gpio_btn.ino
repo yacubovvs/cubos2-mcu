@@ -2,19 +2,12 @@
 
 void driver_gpio_btn_setup(){
     
-    pinMode(16, INPUT);
+    pinMode(12, INPUT);
     pinMode(15, INPUT);
     pinMode(1, INPUT);
     pinMode(3, INPUT);
     
-    pinMode(12, OUTPUT);
-
-    /*
-    pinMode(12, OUTPUT);
-    pinMode(15, OUTPUT);
-    pinMode(1, OUTPUT);
-    pinMode(3, OUTPUT);
-    */
+    pinMode(16, OUTPUT);
 }
 
 
@@ -37,7 +30,8 @@ void driver_gpio_btn_test_start(){
 }
 
 void driver_gpio_btn_test(){
-    if(digitalRead(16)){
+    pinMode(12, INPUT);
+    if(digitalRead(12)){
         tft.setCursor(120, 40); 
         tft.println("ON ");
     }else{
@@ -54,10 +48,10 @@ void driver_gpio_btn_test(){
         tft.setCursor(120, 80); 
         tft.println("OFF");
 
-        pinMode(12, OUTPUT);
-        digitalWrite(12, 1);
+        pinMode(16, OUTPUT);
+        digitalWrite(16, 1);
         delay(200);
-        digitalWrite(12, 0);
+        digitalWrite(16, 0);
     }
 
     if(digitalRead(15)){

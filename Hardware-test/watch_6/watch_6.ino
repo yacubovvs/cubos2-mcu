@@ -2,15 +2,6 @@ void i2c_scanner_setup();
 void i2c_scanner_test();
 
 void setup() { 
-	/*
-	pinMode(12, OUTPUT);
-	while(1){
-		digitalWrite(12, 1);
-		delay(1000);
-		digitalWrite(12, 0);
-		delay(1000);
-	}*/
-	
 	//driver_serialport_setup(9600);
 	//driver_serialport_println("");
 	//driver_serialport_println("Serial port inited");
@@ -37,44 +28,54 @@ void setup() {
 
 	//i2c_scanner_test();
 	driver_DS3231SN_setup();
+
+	pinMode(16, OUTPUT);
 }
 
 long timer = millis();
 void loop() {
+	
+	/////////////////////////////////
+	/*
 	driver_gpio_btn_test_start();
+	driver_DS3231SN_start_1sec_wakeupTimer();
+
+	while(true){	
+		driver_gpio_btn_test();
+	}
+	*/
 
 	while(1){
-		driver_DS3231SN_start_1sec_wakeupTimer();
+		pinMode(16, OUTPUT);
+        digitalWrite(16, 1);
+        delay(150);
+        digitalWrite(16, 0);
+		/*
+		
+		//driver_DS3231SN_start_1sec_wakeupTimer();
+		driver_display_st7789_powerOn();
+		driver_gpio_btn_test_start();
 		timer = millis();
-		while(digitalRead(16)){
-			driver_gpio_btn_test();
-		}
-
-		pinMode(12, OUTPUT);
-        digitalWrite(12, 1);
-        delay(1000);
-        digitalWrite(12, 0);
-		driver_DS3231SN_stop_wakeupTimer();
-		timer = millis();
+		//while(1){
 		while(millis()-timer < 5000){
 			driver_gpio_btn_test();
-		}
+		}*/
 
 		driver_DS3231SN_start_1min_wakeupTimer();
+		driver_DS3231SN_stop_wakeupTimer();
+		driver_display_st7789_powerOff();
+		//delay(5000);
+		driver_cpu_sleep_3();
+		//delay(100);
+		driver_DS3231SN_start_1sec_wakeupTimer();
+		driver_display_st7789_spi_setup();
+		driver_DS3231SN_printsomething();
+		//delay(500);
+		/*
 		timer = millis();
 		while(digitalRead(16)){
 			driver_gpio_btn_test();
-		}
-
-		pinMode(12, OUTPUT);
-        digitalWrite(12, 1);
-        delay(1000);
-        digitalWrite(12, 0);
-		driver_DS3231SN_stop_wakeupTimer();
-		timer = millis();
-		while(millis()-timer < 5000){
-			driver_gpio_btn_test();
-		}
+		}*/
 	}
 	
 

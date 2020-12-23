@@ -63,5 +63,11 @@ void driver_DS3231SN_stop_wakeupTimer(){
     tft.println("Waked up!        ");
 	rtc.alarmClearFlag(URTCLIB_ALARM_1);
     rtc.sqwgSetMode(URTCLIB_SQWG_OFF_1);
+	rtc.sqwgSetMode(URTCLIB_SQWG_OFF_1);
 	//rtc.sqwgSetMode(URTCLIB_SQWG_32768H);
+}
+
+void driver_DS3231SN_printsomething(){
+    tft.setCursor(0, 3); 
+    tft.println("Waked up!        ");
 }
