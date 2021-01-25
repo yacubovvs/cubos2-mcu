@@ -4,7 +4,7 @@ void driver_serialport_setup(){
 
 void driver_serialport_setup(int boundrate){
   Serial.begin(boundrate);
-  while (!Serial);
+  //while (!Serial);
 }
 
 void driver_serialport_print(String string){

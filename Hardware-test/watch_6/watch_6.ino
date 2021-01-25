@@ -2,14 +2,14 @@ void i2c_scanner_setup();
 void i2c_scanner_test();
 
 void setup() { 
-	//driver_serialport_setup(9600);
-	//driver_serialport_println("");
-	//driver_serialport_println("Serial port inited");
+	driver_serialport_setup(9600);
+	driver_serialport_println("");
+	driver_serialport_println("Serial port inited");
 
   // https://github.com/jarzebski/Arduino-DS3231
   // RTC library
 
-	driver_gpio_btn_setup();
+	//driver_gpio_btn_setup();
 	driver_display_st7789_spi_setup();
 	//driver_serialport_println("Display ST7786 inited");
 
@@ -36,22 +36,59 @@ long timer = millis();
 void loop() {
 	
 	/////////////////////////////////
-	/*
-	driver_gpio_btn_test_start();
-	driver_DS3231SN_start_1sec_wakeupTimer();
+	
+	//driver_gpio_btn_test_start();
+	//driver_DS3231SN_start_1sec_wakeupTimer();
+//digitalWrite(16, 1);
 
-	while(true){	
-		driver_gpio_btn_test();
-	}
+//while(true){
+    
+    driver_display_st7789_wakeup();
+    driver_display_st7789_powerOn();
+		//driver_gpio_btn_test();
+    driver_display_st7789_spi_setup();
+    driver_gpio_btn_test_start();
+    delay(3000);
+    /*
+} 
+    driver_display_st7789_sleep();
+    driver_display_st7789_powerOff();
+    delay(7000);
+     
+    driver_display_st7789_powerOn();
+    driver_gpio_btn_test_start();
+    delay(1000);
+    driver_display_st7789_powerOff();
+    delay(1000);
+    //driver_serialport_println("Loop");
+
+	//}
 	*/
+	
 
 	while(1){
+  //1
+  
+  
 		pinMode(16, OUTPUT);
         digitalWrite(16, 1);
         delay(150);
         digitalWrite(16, 0);
+
+        delay(5000);
+
+        continue;
+
+   //2
+
+   timer = millis();
+   driver_gpio_btn_test_start();
+      while(millis()-timer < 5000){
+    //while(true){
+      driver_gpio_btn_test();
+    }
+    
 		/*
-		
 		//driver_DS3231SN_start_1sec_wakeupTimer();
 		driver_display_st7789_powerOn();
 		driver_gpio_btn_test_start();
@@ -61,6 +98,7 @@ void loop() {
 			driver_gpio_btn_test();
 		}*/
 
+    /*
 		driver_DS3231SN_start_1min_wakeupTimer();
 		driver_DS3231SN_stop_wakeupTimer();
 		driver_display_st7789_powerOff();
@@ -70,6 +108,8 @@ void loop() {
 		driver_DS3231SN_start_1sec_wakeupTimer();
 		driver_display_st7789_spi_setup();
 		driver_DS3231SN_printsomething();
+   */
+   
 		//delay(500);
 		/*
 		timer = millis();

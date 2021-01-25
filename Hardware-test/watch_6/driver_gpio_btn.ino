@@ -14,7 +14,7 @@ void driver_gpio_btn_setup(){
 void driver_gpio_btn_test_start(){
   	tft.fillScreen(BLACK);
 	tft.setCursor(0, 3); 
-	tft.println("Buttons test:");
+	tft.println("Buttons tes!!!t:");
 	tft.println("");
 
     tft.setTextColor(WHITE, BLACK); 
@@ -48,10 +48,11 @@ void driver_gpio_btn_test(){
         tft.setCursor(120, 80); 
         tft.println("OFF");
 
+        /*
         pinMode(16, OUTPUT);
         digitalWrite(16, 1);
         delay(200);
-        digitalWrite(16, 0);
+        digitalWrite(16, 0);*/
     }
 
     if(digitalRead(15)){
