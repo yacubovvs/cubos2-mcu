@@ -26,7 +26,7 @@ void driver_gpio_btn_test_start(){
     tft.setCursor(0, 120); 
 	tft.print("Button 3:");
     tft.setCursor(0, 160); 
-	tft.print("Button 3:");
+	tft.print("Button 4:");
 }
 
 void driver_gpio_btn_test(){

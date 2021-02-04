@@ -2,9 +2,9 @@ void i2c_scanner_setup();
 void i2c_scanner_test();
 
 void setup() { 
-	driver_serialport_setup(9600);
-	driver_serialport_println("");
-	driver_serialport_println("Serial port inited");
+	//driver_serialport_setup(9600);
+	//driver_serialport_println("");
+	//driver_serialport_println("Serial port inited");
 
   // https://github.com/jarzebski/Arduino-DS3231
   // RTC library
@@ -43,12 +43,12 @@ void loop() {
 
 //while(true){
     
-    driver_display_st7789_wakeup();
-    driver_display_st7789_powerOn();
+    //driver_display_st7789_wakeup();
+    //driver_display_st7789_powerOn();
 		//driver_gpio_btn_test();
-    driver_display_st7789_spi_setup();
+    //driver_display_st7789_spi_setup();
     driver_gpio_btn_test_start();
-    delay(3000);
+    //delay(3000);
     /*
 } 
     driver_display_st7789_sleep();
@@ -69,7 +69,7 @@ void loop() {
 	while(1){
   //1
   
-  
+  /*
 		pinMode(16, OUTPUT);
         digitalWrite(16, 1);
         delay(150);
@@ -78,13 +78,13 @@ void loop() {
         delay(5000);
 
         continue;
-
+*/
    //2
 
-   timer = millis();
+   //timer = millis();
    driver_gpio_btn_test_start();
-      while(millis()-timer < 5000){
-    //while(true){
+    //  while(millis()-timer < 5000){
+    while(true){
       driver_gpio_btn_test();
     }
     
