@@ -39,7 +39,9 @@ void powerOn_displayDriver(){
 
 
 void fillScreen(byte red, byte green, byte blue){
+  tft.fillScreen(BLACK);
 }
 
 void setPixel(int x, int y){
+  tft.drawPixel(tft.width()/2, tft.height()/2, GREEN);
 }
