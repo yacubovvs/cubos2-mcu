@@ -84,9 +84,9 @@ void loop() {
    //timer = millis();
    driver_gpio_btn_test_start();
     //  while(millis()-timer < 5000){
-    while(true){
-      driver_gpio_btn_test();
-    }
+    //while(true){
+    //  driver_gpio_btn_test();
+    //}
     
 		/*
 		//driver_DS3231SN_start_1sec_wakeupTimer();

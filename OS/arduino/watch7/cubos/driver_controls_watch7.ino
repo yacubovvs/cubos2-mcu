@@ -1,38 +1,71 @@
 #define DRIVER_CONTROLS_TOTALBUTTONS 4
+#define _millis() millis()
+#define DRIVER_CONTROLS_DELAY_BEFOR_LONG_PRESS 350
 
-long last_user_activity = _millis();
+unsigned long last_user_activity = _millis();
 
-byte    driver_control_buttonsPins[] = {12,   15,   1,    3};
-boolean driver_control_isPositiobe[] = {true, true, true, true}     
+byte    driver_control_buttonsPins[]  = {12,   15,    3,    1};
+boolean driver_control_isPositive[]   = {true, false, true, true};     
+// Do not change:
+boolean driver_control_pressed[]      = {false, false, false, false};
+unsigned long driver_control_time_pressed[]    = {0, 0, 0, 0};
+
 
 void driver_controls_setup(){
-  for (byte i=0; i<os_control_buttons; i++){
+  for (byte i=0; i<DRIVER_CONTROLS_TOTALBUTTONS; i++){
     pinMode(driver_control_buttonsPins[i], INPUT);
   }
+  last_user_activity = _millis();
 }
 
-void driver_controls_loop(){};
+/*
+#define EVENT_BUTTON_PRESSED            0x00
+#define EVENT_BUTTON_RELEASED           0x01
+#define EVENT_BUTTON_LONG_PRESS         0x02
+*/
+void driver_controls_loop(){
+  for (byte i=0; i<DRIVER_CONTROLS_TOTALBUTTONS; i++){
+    //if (digitalRead(driver_control_buttonsPins[i])){
+    if ((driver_control_isPositive[i]==true) ? (!digitalRead(driver_control_buttonsPins[i])) : (digitalRead(driver_control_buttonsPins[i]))){
 
-// Do not change:
-boolean driver_control_pressStart[] = {false, false, false};
-boolean driver_control_pressEnd[]   = {false, false, false};
-boolean driver_control_pressed[]    = {false, false, false};
+      last_user_activity = _millis();
+      if(driver_control_pressed[i]==false){
+        // press start
+        driver_control_pressed[i]=true;
+        driver_control_time_pressed[i] = _millis();
+        onButtonEvent(EVENT_BUTTON_PRESSED, i);
+      }else{
+        // was pressed
+        if(_millis()-driver_control_time_pressed[i]>DRIVER_CONTROLS_DELAY_BEFOR_LONG_PRESS){
+          // long press
+          driver_control_time_pressed[i]=-1;
+          onButtonEvent(EVENT_BUTTON_LONG_PRESS, i);
+        }
+      }
 
-long driver_control_get_last_user_avtivity(){
+    }else{
+      if(driver_control_pressed[i]==true){
+        // released
+        driver_control_pressed[i]=false;
+        onButtonEvent(EVENT_BUTTON_RELEASED, i);
+
+      }
+    }
+  }
+
+}
+
+unsigned long driver_control_get_last_user_avtivity(){
   return last_user_activity;
+}
+
+void driver_control_set_last_user_avtivity(unsigned long time){
+  last_user_activity = time;
 }
 
 /*
 
 
-
-
-
-void os_control_setup(){
-  
-
-  
-}
 
 //////////////////////////////////////////////////////////////////////////////
 //  Call to check is button started to press

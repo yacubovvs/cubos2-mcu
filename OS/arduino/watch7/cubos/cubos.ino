@@ -31,6 +31,8 @@
 #define STARTING_APP_NUMM   -1    // for Mainmenu (default app)
 //#define STARTING_APP_NUMM   7     // for App number 7
 
+#define CPU_SLEEP_ENABLE
+#define DELAY_BEFORE_SLEEP 10000
 /*
     ############################################################################################
     #                                                                                          #
@@ -150,20 +152,23 @@ Application* currentApp;
 
 void setup()
 { 
-  #ifdef serialDebug
-    Serial.begin(115200);
-    debug("Serial debug started");
-  #endif
+    #ifdef serialDebug
+        Serial.begin(115200);
+        debug("Serial debug started");
+    #endif
 
-  #ifdef ESP8266
-    ESP.wdtDisable();
-    debug("ESP8266 found");
-  #endif
-
-  setup_displayDriver();
-  debug("Display inited");
-  currentApp = getApp(STARTING_APP_NUMM);
-  debug("Application started");
+    #ifdef ESP8266
+        ESP.wdtDisable();
+        debug("ESP8266 found");
+    #endif
+    
+    driver_cpu_setup();
+    
+    setup_displayDriver();
+    driver_controls_setup();
+    
+    currentApp = getApp(STARTING_APP_NUMM);
+  
 }
 
 void loop(){
@@ -176,7 +181,23 @@ void loop(){
   #ifdef ESP8266
     ESP.wdtDisable();
   #endif
+
+  #ifdef CPU_SLEEP_ENABLE
+    if(millis() - driver_control_get_last_user_avtivity() > DELAY_BEFORE_SLEEP){
+        //do_cpu_sleep();
+    }
+  #endif
 }
+
+#ifdef CPU_SLEEP_ENABLE
+    void do_cpu_sleep(){
+        //debug("Going to sleep");
+        powerOff_displayDriver();
+        driver_cpu_sleep();
+        driver_control_set_last_user_avtivity(millis());
+        powerOn_displayDriver();
+    }
+#endif
 
 void onButtonEvent(byte event, int button){
   currentApp->onEvent(event, button, 0);
