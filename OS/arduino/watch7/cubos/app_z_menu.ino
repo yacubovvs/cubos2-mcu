@@ -311,6 +311,9 @@ void appNameClass::drawIcons(boolean draw){
             int app_num = y_position*(SINGLE_ELEMENTS_IN_Y+1) + x_position + APPS_ON_SINGLE_PAGE*(int)(this->selectedAppIndex/APPS_ON_SINGLE_PAGE);
 
             if(app_num<APP_MENU_APPLICATIONS_QUANTITY){
+              #ifdef ESP8266
+                ESP.wdtDisable();
+              #endif
               core_views_draw_app_icon(
                 draw, 
                 x_center, y_center, 

@@ -143,7 +143,7 @@ Application* currentApp;
 /*
     ############################################################################################
     #                                                                                          #
-    #                                   APPLIACATION OJECT -                                   #
+    #                                    APPLICATION OJECT -                                   #
     #                                                                                          #
     ############################################################################################
 */
@@ -152,11 +152,18 @@ void setup()
 { 
   #ifdef serialDebug
     Serial.begin(115200);
+    debug("Serial debug started");
   #endif
-  setup_displayDriver();
-  currentApp = getApp(STARTING_APP_NUMM);
-  
 
+  #ifdef ESP8266
+    ESP.wdtDisable();
+    debug("ESP8266 found");
+  #endif
+
+  setup_displayDriver();
+  debug("Display inited");
+  currentApp = getApp(STARTING_APP_NUMM);
+  debug("Application started");
 }
 
 void loop(){
@@ -164,12 +171,21 @@ void loop(){
   //os_control_loop(); // Check buttons
   
   driver_controls_loop();
-  currentApp->onLoop();
-  
+  currentApp->onLoop(); 
+
+  #ifdef ESP8266
+    ESP.wdtDisable();
+  #endif
 }
 
 void onButtonEvent(byte event, int button){
   currentApp->onEvent(event, button, 0);
+}
+
+void debug(String string){
+    #ifdef serialDebug
+      Serial.println(string);
+    #endif
 }
 
 /*
