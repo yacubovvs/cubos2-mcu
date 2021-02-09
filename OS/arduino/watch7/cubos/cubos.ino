@@ -183,21 +183,33 @@ void loop(){
     ESP.wdtDisable();
   #endif
 
-  do_cpu_sleep();
+  //do_cpu_sleep();
 
   #ifdef CPU_SLEEP_ENABLE
+
     if(millis() - driver_control_get_last_user_avtivity() > DELAY_BEFORE_SLEEP){
-      if(!isInSleep){
-        isInSleep = true;
-        powerOff_displayDriver();
-        //do_cpu_sleep();
-      }
+        if(!isInSleep){
+            isInSleep = true;
+            powerOff_displayDriver();
+        }
+
+        do_cpu_sleep();
+      
     }else{
       if(isInSleep){
         isInSleep = false;
+        driver_cpu_wakeup();
         powerOn_displayDriver();
+        driver_controls_setup();
       }
+
+        delay(10);
+        debug("For sleep delay ");
+        debug( String(millis() - driver_control_get_last_user_avtivity()) );
+        debug("\n");
+        delay(100);
     }
+    //driver_cpu_wakeup();
   #endif
 }
 
