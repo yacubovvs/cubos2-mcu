@@ -26,7 +26,6 @@ uint16_t get_uint16Color(byte red, byte green, byte blue){
 
 void setup_displayDriver(){
   tft.init(240, 240);
-  tft.fillScreen(BLACK);
   tft.setTextSize(2); 
 }
 
@@ -42,6 +41,7 @@ void wakeup_displayDriver(){
 
 void powerOff_displayDriver(){
   tft.sleep();
+  //pinMode(0, OUTPUT);
   digitalWrite(0,0);
 }
 

@@ -37,8 +37,18 @@ void driver_cpu_sleep(){
     
     //gpio_init(); // Initilise GPIO pins
     //wifi_fpm_open();
+      wifi_fpm_set_sleep_type(LIGHT_SLEEP_T);
+      wifi_fpm_open();
+      gpio_pin_wakeup_enable(GPIO_ID_PIN(4), GPIO_PIN_INTR_LOLEVEL);
+      wifi_fpm_do_sleep(0xFFFFFFF);
+      delay(1000);
+
+    /*
+    powerOff_displayDriver();
+    return;
     
     ESP.wdtDisable();
+    */
     //wifi_fpm_set_sleep_type(LIGHT_SLEEP_T); // set sleep type, the above posters wifi_set_sleep_type() didnt seem to work for me although it did let me compile and upload with no errors
     //pinMode(0, OUTPUT);
     //digitalWrite(0, 0);
@@ -63,6 +73,8 @@ void driver_cpu_sleep(){
     gpio_pin_wakeup_enable(GPIO_ID_PIN(12), GPIO_PIN_INTR_LOLEVEL); // GPIO_PIN_INTR_LOLEVEL 
     */
 
+   
+   /*
     wifi_set_opmode_current(NULL_MODE);
     wifi_fpm_set_sleep_type(LIGHT_SLEEP_T);
 
@@ -70,4 +82,5 @@ void driver_cpu_sleep(){
    
     wifi_fpm_do_sleep(0xFFFFFFF); // Sl
     delay(1000);
+    */
 }

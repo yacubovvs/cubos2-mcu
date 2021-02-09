@@ -171,6 +171,7 @@ void setup()
   
 }
 
+bool isInSleep = false;
 void loop(){
   //clearscreen_displayDriver();
   //os_control_loop(); // Check buttons
@@ -182,9 +183,20 @@ void loop(){
     ESP.wdtDisable();
   #endif
 
+  do_cpu_sleep();
+
   #ifdef CPU_SLEEP_ENABLE
     if(millis() - driver_control_get_last_user_avtivity() > DELAY_BEFORE_SLEEP){
+      if(!isInSleep){
+        isInSleep = true;
+        powerOff_displayDriver();
         //do_cpu_sleep();
+      }
+    }else{
+      if(isInSleep){
+        isInSleep = false;
+        powerOn_displayDriver();
+      }
     }
   #endif
 }
@@ -192,10 +204,10 @@ void loop(){
 #ifdef CPU_SLEEP_ENABLE
     void do_cpu_sleep(){
         //debug("Going to sleep");
-        powerOff_displayDriver();
+        //powerOff_displayDriver();
         driver_cpu_sleep();
-        driver_control_set_last_user_avtivity(millis());
-        powerOn_displayDriver();
+        //driver_control_set_last_user_avtivity(millis());
+        //powerOn_displayDriver();
     }
 #endif
 
