@@ -4,7 +4,7 @@
 
 unsigned long last_user_activity = _millis();
 
-byte    driver_control_buttonsPins[]  = {12,   15,    3,    3};
+byte    driver_control_buttonsPins[]  = {12,   15,    3,    1};
 boolean driver_control_isPositive[]   = {true, false, true, true};     
 // Do not change:
 boolean driver_control_pressed[]      = {false, false, false, false};

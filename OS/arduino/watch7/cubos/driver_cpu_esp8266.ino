@@ -53,7 +53,7 @@ void driver_cpu_sleep(){
         wifi_fpm_set_sleep_type(LIGHT_SLEEP_T);
         wifi_fpm_open();
         gpio_pin_wakeup_enable(GPIO_ID_PIN(3), GPIO_PIN_INTR_LOLEVEL); // GPIO_PIN_INTR_LOLEVEL 
-        //gpio_pin_wakeup_enable(GPIO_ID_PIN(1), GPIO_PIN_INTR_LOLEVEL); // GPIO_PIN_INTR_LOLEVEL 
+        gpio_pin_wakeup_enable(GPIO_ID_PIN(1), GPIO_PIN_INTR_LOLEVEL); // GPIO_PIN_INTR_LOLEVEL 
         gpio_pin_wakeup_enable(GPIO_ID_PIN(15), GPIO_PIN_INTR_HILEVEL); // GPIO_PIN_INTR_LOLEVEL 
         gpio_pin_wakeup_enable(GPIO_ID_PIN(12), GPIO_PIN_INTR_LOLEVEL); // GPIO_PIN_INTR_LOLEVEL 
 
