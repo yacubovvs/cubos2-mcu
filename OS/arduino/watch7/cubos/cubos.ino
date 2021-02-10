@@ -194,9 +194,7 @@ void loop(){
     }else{
       if(isInSleep){
         isInSleep = false;
-        //driver_cpu_wakeup();
-        powerOn_displayDriver();
-        driver_controls_setup();
+        driver_cpu_wakeup();
       }
 
         delay(10);

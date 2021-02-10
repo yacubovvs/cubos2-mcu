@@ -18,6 +18,7 @@ extern "C" {
 }
 
 void driver_cpu_setup(){
+    driver_cpu_wakeup();
     //wifi_set_sleep_type(MODEM_SLEEP_T);
 
 
@@ -27,6 +28,9 @@ void driver_cpu_setup(){
 }
 
 void driver_cpu_wakeup(){
+  WiFi.forceSleepWake();
+    delay(50);
+  
     wifi_set_sleep_type(MODEM_SLEEP_T);
     WiFi.disconnect();
     WiFi.mode(WIFI_OFF);
@@ -36,10 +40,14 @@ void driver_cpu_wakeup(){
     wifi_fpm_do_sleep(26843455);
     WiFi.forceSleepBegin();
     delay(5);
+
+    powerOn_displayDriver();
+    driver_controls_setup();
+    
 }
 
 void driver_cpu_sleep(){
-    
+    WiFi.forceSleepWake();
     //gpio_init(); // Initilise GPIO pins
     //wifi_fpm_open();
         wifi_fpm_set_sleep_type(LIGHT_SLEEP_T);
@@ -48,10 +56,9 @@ void driver_cpu_sleep(){
         //gpio_pin_wakeup_enable(GPIO_ID_PIN(1), GPIO_PIN_INTR_LOLEVEL); // GPIO_PIN_INTR_LOLEVEL 
         gpio_pin_wakeup_enable(GPIO_ID_PIN(15), GPIO_PIN_INTR_HILEVEL); // GPIO_PIN_INTR_LOLEVEL 
         gpio_pin_wakeup_enable(GPIO_ID_PIN(12), GPIO_PIN_INTR_LOLEVEL); // GPIO_PIN_INTR_LOLEVEL 
-        //gpio_pin_wakeup_enable(GPIO_ID_PIN(12), GPIO_PIN_INTR_LOLEVEL); // GPIO_PIN_INTR_LOLEVEL 
+
         wifi_fpm_do_sleep(0xFFFFFFF);
-        //yeild();
-        delay(100);
+        delay(50);
         debug("Going to sleep ");
         debug(String(millis()));
         debug("\n");
