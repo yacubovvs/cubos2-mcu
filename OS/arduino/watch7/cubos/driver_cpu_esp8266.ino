@@ -1,3 +1,4 @@
+#include "Arduino.h"
 #include "ESP8266WiFi.h"
 /*
 #include "gpio.h"
@@ -20,7 +21,7 @@ void driver_cpu_setup(){
     //wifi_set_sleep_type(MODEM_SLEEP_T);
 
 
-    driver_cpu_wakeup();
+    //driver_cpu_wakeup();
     //wifi_fpm_open();
     //wifi_fpm_do_sleep(0xFFFFFFF); // Sl
 }
@@ -49,6 +50,7 @@ void driver_cpu_sleep(){
         gpio_pin_wakeup_enable(GPIO_ID_PIN(12), GPIO_PIN_INTR_LOLEVEL); // GPIO_PIN_INTR_LOLEVEL 
         //gpio_pin_wakeup_enable(GPIO_ID_PIN(12), GPIO_PIN_INTR_LOLEVEL); // GPIO_PIN_INTR_LOLEVEL 
         wifi_fpm_do_sleep(0xFFFFFFF);
+        //yeild();
         delay(100);
         debug("Going to sleep ");
         debug(String(millis()));

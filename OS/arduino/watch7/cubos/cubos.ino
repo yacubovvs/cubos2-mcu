@@ -173,8 +173,6 @@ void setup()
 
 bool isInSleep = false;
 void loop(){
-  //clearscreen_displayDriver();
-  //os_control_loop(); // Check buttons
   
   driver_controls_loop();
   currentApp->onLoop(); 
@@ -183,10 +181,8 @@ void loop(){
     ESP.wdtDisable();
   #endif
 
-  //do_cpu_sleep();
-
   #ifdef CPU_SLEEP_ENABLE
-
+//driver_cpu_sleep();
     if(millis() - driver_control_get_last_user_avtivity() > DELAY_BEFORE_SLEEP){
         if(!isInSleep){
             isInSleep = true;
@@ -198,7 +194,7 @@ void loop(){
     }else{
       if(isInSleep){
         isInSleep = false;
-        driver_cpu_wakeup();
+        //driver_cpu_wakeup();
         powerOn_displayDriver();
         driver_controls_setup();
       }
