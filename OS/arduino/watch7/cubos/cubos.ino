@@ -1,12 +1,13 @@
 /*
     ############################################################################################
     #                                                                                          #
-    #                                    M5STACK SETTINGS +                                    #
+    #                                    WATCH 7 SETTINGS +                                    #
     #                                                                                          #
     ############################################################################################
 */
 
-#define serialDebug
+//#define serialDebug
+#define screenDebug
 
 #define SCREEN_WIDTH            240     // Screen resolution width
 #define SCREEN_HEIGHT           240     // Screen resolution height
@@ -26,13 +27,18 @@
 #define colorScreen                     // Screen is colored
 #define noAnimation                     // Caurse of framebuffer type
 
-#define toDefaultApp_onLeftLongPress
+//#define toDefaultApp_onLeftLongPress
 
 #define STARTING_APP_NUMM   -1    // for Mainmenu (default app)
 //#define STARTING_APP_NUMM   7     // for App number 7
 
 #define CPU_SLEEP_ENABLE
 #define DELAY_BEFORE_SLEEP 10000
+
+#define BUTTON_UP       0
+#define BUTTON_SELECT   1
+#define BUTTON_DOWN     2
+#define BUTTON_BACK     3
 /*
     ############################################################################################
     #                                                                                          #
@@ -159,7 +165,6 @@ void setup()
 
     #ifdef ESP8266
         ESP.wdtDisable();
-        debug("ESP8266 found");
     #endif
     
     driver_cpu_setup();
@@ -196,12 +201,6 @@ void loop(){
         isInSleep = false;
         driver_cpu_wakeup();
       }
-
-        delay(10);
-        debug("For sleep delay ");
-        debug( String(millis() - driver_control_get_last_user_avtivity()) );
-        debug("\n");
-        delay(100);
     }
     //driver_cpu_wakeup();
   #endif
@@ -209,11 +208,7 @@ void loop(){
 
 #ifdef CPU_SLEEP_ENABLE
     void do_cpu_sleep(){
-        //debug("Going to sleep");
-        //powerOff_displayDriver();
         driver_cpu_sleep();
-        //driver_control_set_last_user_avtivity(millis());
-        //powerOn_displayDriver();
     }
 #endif
 
@@ -222,8 +217,20 @@ void onButtonEvent(byte event, int button){
 }
 
 void debug(String string){
+  debug(string, 0);
+}
+
+void debug(String string, int delaytime){
     #ifdef serialDebug
       Serial.println(string);
+    #endif
+
+    #ifdef screenDebug
+      setDrawColor(255, 255, 255);
+      drawString(string, 5, STYLE_STATUSBAR_HEIGHT + 10, 2);
+      delay(delaytime);
+      setDrawColor(0, 0, 0);
+      drawString(string, 5, STYLE_STATUSBAR_HEIGHT + 10, 2);
     #endif
 }
 

@@ -221,7 +221,7 @@ const byte appNameClass::icon[] PROGMEM = {
 };
 
 void appNameClass::onCreate(){
-    core_views_statusBar_draw();
+    //core_views_statusBar_draw();
     this->selectedAppIndex = 0;
     /*  // * /
     #ifdef serialDebug
@@ -245,7 +245,7 @@ void appNameClass::onCreate(){
     core_views_draw_active_page(true, PAGES_LIST_POSITION, TOTAL_PAGES, 0);
 
     // Drawing icons
-    this -> drawIcons(true);
+    this->drawIcons(true);
     this->drawActiveAppFrame(true);
     
 }
@@ -308,12 +308,15 @@ void appNameClass::drawIcons(boolean draw){
             int x_center = (x0+x1)/2;
             int y_center = (y0+y1)/2;
 
-            int app_num = y_position*(SINGLE_ELEMENTS_IN_Y+1) + x_position + APPS_ON_SINGLE_PAGE*(int)(this->selectedAppIndex/APPS_ON_SINGLE_PAGE);
+            int app_num = y_position*(SINGLE_ELEMENTS_IN_Y) + x_position + APPS_ON_SINGLE_PAGE*(int)(this->selectedAppIndex/APPS_ON_SINGLE_PAGE);
 
             if(app_num<APP_MENU_APPLICATIONS_QUANTITY){
               #ifdef ESP8266
                 ESP.wdtDisable();
               #endif
+
+              //debug(String(app_num), 1000);
+
               core_views_draw_app_icon(
                 draw, 
                 x_center, y_center, 

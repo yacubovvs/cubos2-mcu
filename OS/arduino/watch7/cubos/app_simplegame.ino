@@ -20,12 +20,11 @@ class appNameClass: public Application{
 };
 
 void appNameClass::onCreate(){
-
-    
-
     /*
         Write you code onCreate here
     */
+    setDrawColor(255, 255, 255);
+    drawString(appName, 5, STYLE_STATUSBAR_HEIGHT + 10, 2);
 }
 
 void appNameClass::onLoop(){
@@ -44,6 +43,10 @@ void appNameClass::onEvent(byte event, int val1, int val2){
     
     if(event==EVENT_BUTTON_PRESSED){
         // Write you code on [val1] button pressed here
+        if(val1==BUTTON_BACK){
+            startApp(-1);
+        }
+
     }else if(event==EVENT_BUTTON_RELEASED){
         // Write you code on [val1] button released here
     }else if(event==EVENT_BUTTON_LONG_PRESS){

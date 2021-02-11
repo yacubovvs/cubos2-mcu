@@ -19,13 +19,54 @@ class appNameClass: public Application{
       
 };
 
+#include <Wire.h>
+
 void appNameClass::onCreate(){
-
-    
-
     /*
         Write you code onCreate here
     */
+    setDrawColor(255, 255, 255);
+    
+
+    Wire.begin();
+    byte error, address;
+    int nDevices;
+ 
+    debug("Scanning...", 1000);
+ 
+    nDevices = 0;
+    for(address = 8; address < 127; address++ ){
+        //if(address==104) continue;
+        Wire.beginTransmission(address);
+        error = Wire.endTransmission();
+ 
+        #ifdef ESP8266
+            ESP.wdtDisable();
+        #endif
+
+        if (error == 0){
+            debug("I2C device found at address 0x", 1000);
+            if (address<16)
+                debug("0", 1000);
+            //Serial.print(address,HEX);
+            debug(String(address), 1000);
+            //debug("!", 1000);
+ 
+            nDevices++;
+        }
+        else if (error==4) {
+            debug("Unknow error at address 0x", 1000);
+            if (address<16)
+                debug("0", 1000);
+            //Serial.println(address,HEX);
+            debug(String(address));
+        } 
+    }
+    if (nDevices == 0)
+        debug("No I2C devices found", 1000);
+    else
+        debug("done", 1000);
+ 
 }
 
 void appNameClass::onLoop(){
@@ -44,6 +85,9 @@ void appNameClass::onEvent(byte event, int val1, int val2){
     
     if(event==EVENT_BUTTON_PRESSED){
         // Write you code on [val1] button pressed here
+        if(val1==BUTTON_BACK){
+            startApp(-1);
+        }
     }else if(event==EVENT_BUTTON_RELEASED){
         // Write you code on [val1] button released here
     }else if(event==EVENT_BUTTON_LONG_PRESS){
