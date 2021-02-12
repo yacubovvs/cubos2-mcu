@@ -21,6 +21,8 @@
 #define device_has_bluetooth
 #define device_has_wifi
 
+#define ON_TIME_CHANGE_EVERY_MS 1000
+
 #define hasHardwareButtons              // Conf of controls with hardware btns    
 //#define isTouchScreen                 // Conf of controls
 
@@ -33,12 +35,14 @@
 //#define STARTING_APP_NUMM   7     // for App number 7
 
 #define CPU_SLEEP_ENABLE
-#define DELAY_BEFORE_SLEEP 10000
+#define DELAY_BEFORE_SLEEP 25000
 
 #define BUTTON_UP       0
 #define BUTTON_SELECT   1
 #define BUTTON_DOWN     2
 #define BUTTON_BACK     3
+
+#define BATTERY_ENABLE
 /*
     ############################################################################################
     #                                                                                          #
@@ -98,21 +102,19 @@ void fillScreen(byte red, byte green, byte blue);
 
 class Application{
   public:
-    boolean showStatusBar = false;
-
-  
     int scroll_x              = 0;
     int scroll_y              = 0;
     int scroll_to_x           = 0;
     int scroll_to_y           = 0;
-    bool isfullScreen         = false;
+    bool isfullScreen         = true;
+    bool showStatusBar        = true;
 
     virtual void onLoop()     = 0;
     virtual void onDestroy()  = 0;
     virtual void onEvent(byte event, int val1, int val2) = 0;
 
     void super_onCreate(){
-      if(!this->isfullScreen) core_views_statusBar_draw();
+      if(this->showStatusBar) core_views_statusBar_draw();
     }
 
     void loop_app(){
@@ -182,6 +184,7 @@ bool isInSleep = false;
 void loop(){
   driver_battery_loop();
   driver_controls_loop();
+  core_time_loop();
   currentApp->onLoop(); 
 
   #ifdef ESP8266
@@ -291,7 +294,7 @@ void debug(String string, int delaytime){
 #define EVENT_BUTTON_PRESSED            0x00
 #define EVENT_BUTTON_RELEASED           0x01
 #define EVENT_BUTTON_LONG_PRESS         0x02
-#define EVENT_TIME_CHANGED              0x03
+#define EVENT_ON_TIME_CHANGED           0x03
 
 /*
     ############################################################################################

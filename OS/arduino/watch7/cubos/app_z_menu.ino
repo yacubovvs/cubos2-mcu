@@ -325,7 +325,7 @@ void appNameClass::onEvent(byte event, int val1, int val2){
 
     }else if(event==EVENT_BUTTON_LONG_PRESS){
 
-    }else if(event==EVENT_TIME_CHANGED){
+    }else if(event==EVENT_ON_TIME_CHANGED){
 
     }
 

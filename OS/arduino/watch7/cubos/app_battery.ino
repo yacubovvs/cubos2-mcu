@@ -32,7 +32,7 @@ void appNameClass::onCreate(){
     setDrawColor(255, 255, 255);
     drawString("Max analog: " + String(getMaxBatteryAnalogValue()), 5, STYLE_STATUSBAR_HEIGHT + 0*20 + 10, 2);
     drawString("Raw battery: " + String(driver_battery_raw()), 5, STYLE_STATUSBAR_HEIGHT + 1*20 + 10, 2);
-    drawString("Voltage: " + String(driver_battery_getmVoltage() + " mV"), 5, STYLE_STATUSBAR_HEIGHT + 2*20 + 10, 2);
+    drawString("Voltage: " + String(driver_battery_getmVoltage()) + "0 mV", 5, STYLE_STATUSBAR_HEIGHT + 2*20 + 10, 2);
     //drawString("Voltage: " + String(driver_battery_getVoltage() + " V"), 5, STYLE_STATUSBAR_HEIGHT + 3*20 + 10, 2);
     drawString("Percent: " + String(driver_battery_getPercent()), 5, STYLE_STATUSBAR_HEIGHT + 4*20 + 10, 2);
     
@@ -61,7 +61,7 @@ void appNameClass::onEvent(byte event, int val1, int val2){
         // Write you code on [val1] button released here
     }else if(event==EVENT_BUTTON_LONG_PRESS){
         // Write you code on [val1] button long press here
-    }else if(event==EVENT_TIME_CHANGED){
+    }else if(event==EVENT_ON_TIME_CHANGED){
         // Write you code on system time changed
     }
     

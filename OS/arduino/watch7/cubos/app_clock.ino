@@ -3,12 +3,18 @@
 
 class appNameClass: public Application{
     public:
+        bool isfullScreen         = true;
         virtual void onLoop() override;
         virtual void onDestroy() override;
         virtual void onEvent(byte event, int val1, int val2) override;
 
         void onCreate();
-        appNameClass(){ fillScreen(0, 0, 0); super_onCreate(); onCreate(); };
+        appNameClass(){ 
+            fillScreen(0, 0, 0); 
+            this->showStatusBar = false;
+            super_onCreate(); 
+            onCreate(); 
+        };
         static unsigned const char* getParams(const unsigned char type){
             switch(type){ 
               case PARAM_TYPE_NAME: return (unsigned char*)appName; 
@@ -16,6 +22,8 @@ class appNameClass: public Application{
               default: return (unsigned char*)""; }
         };
         const static byte icon[] PROGMEM;
+
+        void draw_current_time();
       
 };
 
@@ -23,8 +31,7 @@ void appNameClass::onCreate(){
     /*
         Write you code onCreate here
     */
-    setDrawColor(255, 255, 255);
-    drawString(appName, 5, STYLE_STATUSBAR_HEIGHT + 10, 2);
+    this->draw_current_time();
 }
 
 void appNameClass::onLoop(){
@@ -50,10 +57,16 @@ void appNameClass::onEvent(byte event, int val1, int val2){
         // Write you code on [val1] button released here
     }else if(event==EVENT_BUTTON_LONG_PRESS){
         // Write you code on [val1] button long press here
-    }else if(event==EVENT_TIME_CHANGED){
+    }else if(event==EVENT_ON_TIME_CHANGED){
         // Write you code on system time changed
+        this->draw_current_time();
     }
     
+}
+
+void appNameClass::draw_current_time(){
+    setDrawColor(255, 255, 255);
+    drawString(core_time_getTimeString(), 5, STYLE_STATUSBAR_HEIGHT + 10, 2);
 }
 
 const byte appNameClass::icon[] PROGMEM = {

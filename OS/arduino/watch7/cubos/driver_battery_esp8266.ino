@@ -14,7 +14,7 @@ void driver_battery_loop(){
 
 int driver_battery_raw(){
     int analogValue = analogRead(A0);
-    if(analogValue>getMaxBatteryAnalogValue()) maxBatteryAnalogValue=analogValue;
+    //if(analogValue>getMaxBatteryAnalogValue()) maxBatteryAnalogValue=analogValue;
     return analogValue;
 }
 
