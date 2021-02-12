@@ -16,6 +16,10 @@ class appNameClass: public Application{
               default: return (unsigned char*)""; }
         };
         const static byte icon[] PROGMEM;
+
+    private:
+        void drawStringOnScreen(String string);
+        byte currentString = 0;
       
 };
 
@@ -31,8 +35,8 @@ void appNameClass::onCreate(){
     Wire.begin();
     byte error, address;
     int nDevices;
- 
-    debug("Scanning...", 1000);
+
+    drawStringOnScreen("Scanning...");
  
     nDevices = 0;
     for(address = 8; address < 127; address++ ){
@@ -45,27 +49,21 @@ void appNameClass::onCreate(){
         #endif
 
         if (error == 0){
-            debug("I2C device found at address 0x", 1000);
-            if (address<16)
-                debug("0", 1000);
-            //Serial.print(address,HEX);
-            debug(String(address), 1000);
-            //debug("!", 1000);
- 
+            
+            if(address==119) drawStringOnScreen("Barometr " + getHexStringFromByte(address));
+            else if(address==13) drawStringOnScreen("Compass " + getHexStringFromByte(address));
+            else if(address==104) drawStringOnScreen("RTC " + getHexStringFromByte(address));
+            else drawStringOnScreen("I2C device " + getHexStringFromByte(address));
             nDevices++;
         }
         else if (error==4) {
-            debug("Unknow error at address 0x", 1000);
-            if (address<16)
-                debug("0", 1000);
-            //Serial.println(address,HEX);
-            debug(String(address));
+            drawStringOnScreen("ERROR " + getHexStringFromByte(address));
         } 
     }
     if (nDevices == 0)
-        debug("No I2C devices found", 1000);
+        drawStringOnScreen("No I2C devices found");
     else
-        debug("done", 1000);
+        drawStringOnScreen("done");
  
 }
 
@@ -79,6 +77,11 @@ void appNameClass::onDestroy(){
     /*
         Write you code onDestroy here
     */
+}
+
+void appNameClass::drawStringOnScreen(String string){
+    drawString(string, 5, STYLE_STATUSBAR_HEIGHT + 8 + 20*currentString, 2);
+    currentString++;
 }
 
 void appNameClass::onEvent(byte event, int val1, int val2){
