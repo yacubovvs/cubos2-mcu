@@ -66,3 +66,13 @@ void setDrawColor(byte red_new, byte green_new, byte blue_new){
 
   current_drawColor = get_uint16Color(red, green, blue);
 }
+
+#ifdef USE_PRIMITIVE_HARDWARE_DRAW_ACCELERATION
+  void drawFastVLine(int16_t x, int16_t y, int16_t h){
+    tft.drawFastVLine(SCREEN_WIDTH-x, SCREEN_WIDTH-y, h+1, current_drawColor);
+  }
+
+  void drawFastHLine(int16_t x, int16_t y, int16_t h){
+    tft.drawFastHLine(SCREEN_WIDTH-x, SCREEN_WIDTH-y, h+1, current_drawColor);
+  }
+#endif

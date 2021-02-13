@@ -66,7 +66,7 @@ void appNameClass::onEvent(byte event, int val1, int val2){
 
 void appNameClass::draw_current_time(){
     setDrawColor(255, 255, 255);
-    drawString(core_time_getTimeString(), 5, STYLE_STATUSBAR_HEIGHT + 10, 2);
+    drawString(core_time_getTimeString(), 2, 90, 8);
 }
 
 const byte appNameClass::icon[] PROGMEM = {

@@ -80,6 +80,19 @@ void drawPixel(int x, int y){
 }
 
 void drawLine(int x0, int y0, int x1, int y1){
+
+  #ifdef USE_PRIMITIVE_HARDWARE_DRAW_ACCELERATION
+    if(x0==x1){
+      drawFastVLine(x0, max(y0, y1), abs(y0-y1));
+      return;
+    }
+
+    if(y0==y1){
+      drawFastHLine(max(x0, x1), y0, abs(x0-x1));
+      return;
+    }
+  #endif
+
   int dy = y1 - y0; // Difference between y0 and y1
   int dx = x1 - x0; // Difference between x0 and x1
   int stepx, stepy;
