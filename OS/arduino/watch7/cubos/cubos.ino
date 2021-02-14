@@ -45,6 +45,11 @@
 #define BATTERY_ENABLE
 #define CLOCK_ENABLE
 #define USE_PRIMITIVE_HARDWARE_DRAW_ACCELERATION
+
+//#define SCREEN_ROTATION_0
+//#define SCREEN_ROTATION_90
+#define SCREEN_ROTATION_180
+//#define SCREEN_ROTATION_270
 /*
     ############################################################################################
     #                                                                                          #

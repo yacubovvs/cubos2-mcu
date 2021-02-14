@@ -28,7 +28,7 @@ void appNameClass::onCreate(){
     long time_finish;
     long time_start;
 
-    /* */
+    /* * /
     fillScreen(0, 0, 0);
     setDrawColor(255, 255, 255);
     delay(10);
@@ -43,7 +43,8 @@ void appNameClass::onCreate(){
     drawString("Finish at " + String(time_finish), 5, STYLE_STATUSBAR_HEIGHT + 10 + 16*1, 2);
 
     //  Results:
-    // 13.02.2021 3442ms
+    // 13.02.2021 - 3442 ms
+    // 13.02.2021 - 259 ms    - hardware acceleration for drawing lines
 
     delay(2000);
     // */
@@ -67,8 +68,9 @@ void appNameClass::onCreate(){
     time_start = millis();
     drawString("Icon test", 5, STYLE_STATUSBAR_HEIGHT + 10 + 16*0, 2);
     
-    for(byte i=0; i<60; i++){
+    for(byte i=0; i<30; i++){
         drawIcon(true, testIcon, 120, 120);      
+        drawIcon(false, testIcon, 120, 120);      
     }
 
     setDrawColor(255, 255, 255);
@@ -76,7 +78,13 @@ void appNameClass::onCreate(){
     drawString("Finish at " + String(time_finish), 5, STYLE_STATUSBAR_HEIGHT + 10 + 16*1, 2);
 
     //  Results:
-    // 13.02.2021 3581ms
+    // 13.02.2021 - 3581 ms
+    // 13.02.2021 - 2480 ms    - Hardware acceleration for drawing lines
+    // 13.02.2021 - 2476 ms    - I down`t know why, just a surprise for me
+    // 13.02.2021 - 1377 ms    - Double pixels changed to fast lines
+    // 13.02.2021 - 911 ms     - Clear icon with rect
+    // 13.02.2021 - 833 ms     - Hardware acceleration for filling rect
+    // 13.02.2021 - 828 ms     - Draw a line if more 2 pixels in raw
 
     delay(2000);
     // */
@@ -108,7 +116,8 @@ void appNameClass::onCreate(){
             setDrawColor(255, 255, 255);
             drawString("Blink string", 5, STYLE_STATUSBAR_HEIGHT + 10 + 16*5, 1);
             setDrawColor(0, 0, 0);
-            drawString("Blink string", 5, STYLE_STATUSBAR_HEIGHT + 10 + 16*5, 1);    
+            //drawString("Blink string", 5, STYLE_STATUSBAR_HEIGHT + 10 + 16*5, 1);    
+            clearString("Blink string", 5, STYLE_STATUSBAR_HEIGHT + 10 + 16*5, 1);    
         }
     }
 
@@ -118,11 +127,14 @@ void appNameClass::onCreate(){
 
     //  Results:
     // 13.02.2021 3170ms
+    // 13.02.2021 1935ms - Hardware acceleration for drawing lines
+    // 14.02.2021 1933ms - Some optimisation
+    // 14.02.2021 1418ms - Added function clearString
 
     delay(2000);
     // */
     
-    /* * /
+    /* */
     const byte testIcon[] = {
         0x02,0x01,0x02,0x18,0x02,0x18,0x04,0xff,0x00,0x00,0x00,0x00,0x00,0x03,0xFF,0xC0,0x0F,0xFF,0xF0,0x1F,0xFF,0xF8,
         0x3F,0xFF,0xFC,0x3F,0xFF,0xFC,0x7F,0xFF,0xFE,0x7F,0xFF,0xFE,0x7F,0xFF,0xFE,0x7F,0xFF,0xFE,0x7F,0xFF,0xFE,0x7F,
@@ -149,7 +161,7 @@ void appNameClass::onCreate(){
         setDrawColor(255, 255, 255);
         drawString("Blink", 5, STYLE_STATUSBAR_HEIGHT + 10 + 16*5, 7);
         setDrawColor(0, 0, 0);
-        drawString("Blink", 5, STYLE_STATUSBAR_HEIGHT + 10 + 16*5, 7);    
+        clearString("Blink", 5, STYLE_STATUSBAR_HEIGHT + 10 + 16*5, 7);    
 
     }
 
@@ -158,7 +170,7 @@ void appNameClass::onCreate(){
     drawString("Finish at " + String(time_finish), 5, STYLE_STATUSBAR_HEIGHT + 10 + 16*1, 2);
 
     //  Results:
-    // 13.02.2021 3170ms
+    // 13.02.2021 3620ms
 
     delay(2000);
     

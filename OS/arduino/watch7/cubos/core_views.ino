@@ -291,10 +291,15 @@ void core_views_draw_app_icon(boolean draw, int x, int y, const byte* title, con
     //Serial.println((char*)icon);
 
     // title
-    if(draw) setDrawColor(255, 255, 255);
-    else setDrawColor(getBackgroundColor_red(), getBackgroundColor_green(), getBackgroundColor_blue());
+    if(draw){
+        setDrawColor(255, 255, 255);
+        drawString_centered((char*)title, x, y + CORE_VIEWS_APPICON_TITLE_Y_OFFSET);
+    }else{
+        setDrawColor(getBackgroundColor_red(), getBackgroundColor_green(), getBackgroundColor_blue());
+        clearString_centered((char*)title, x, y + CORE_VIEWS_APPICON_TITLE_Y_OFFSET);
+    }
 
-    drawString_centered((char*)title, x, y + CORE_VIEWS_APPICON_TITLE_Y_OFFSET);
+    
 }
 
 void drawMenuElement(bool draw, uint16_t x, uint16_t y, uint16_t width, uint16_t height, const unsigned char* icon, String string1, String string2){
