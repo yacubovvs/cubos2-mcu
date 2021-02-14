@@ -627,6 +627,14 @@ static const unsigned char font_cubos[] PROGMEM = {
   0x00, 0x00, 0x00, 0x00, 0x00  // #255 NBSP
 };
 
+void clearString(String dString, int x, int y, byte fontSize){
+  int str_len = dString.length() + 1;
+  char element_value[str_len];
+  dString.toCharArray(element_value, str_len);
+
+  clearString(element_value, x, y, fontSize);
+}
+
 void clearString(char * dString, int x, int y, byte fontSize){
   #ifdef USE_PRIMITIVE_HARDWARE_DRAW_ACCELERATION
     if(fontSize==0) fontSize = 1;
@@ -648,22 +656,35 @@ void setStr(char * dString, int x, int y, byte fontSize){
       for (unsigned char bit=0; bit<8; bit++){
 
         if (getBitInByte(char_part_element, bit)){
-          if(fontSize>1){
-            for(int j=0; j<fontSize; j++){
-              for(int jj=0; jj<fontSize; jj++){
-                setPixel(x + char_part*fontSize + i*FONT_CHAR_WIDTH*fontSize + jj, y + bit*fontSize - j);
+          #ifdef USE_PRIMITIVE_HARDWARE_DRAW_ACCELERATION
+            byte pixelsInLine=0;
+            for (byte i=bit+1; i<8; i++){
+              if(getBitInByte(char_part_element, i)) {
+                pixelsInLine++;
+              }else{
+                break;
               }
             }
+          #endif
+
+          if(fontSize>1){
+            int x_r = x + char_part*fontSize + i*FONT_CHAR_WIDTH*fontSize;
+            int y_r = y + bit*fontSize;
+
+            #ifdef USE_PRIMITIVE_HARDWARE_DRAW_ACCELERATION
+              if(pixelsInLine>0){
+                drawRect(x_r, y_r + (pixelsInLine)*fontSize, x_r + fontSize - 1, y_r - fontSize+1, true);
+                bit+=pixelsInLine;
+              }else{
+                drawRect(x_r, y_r, x_r + fontSize - 1, y_r - fontSize+1, true);
+              }
+            #else
+              drawRect(x_r, y_r, x_r + fontSize - 1, y_r - fontSize+1, true);
+            #endif
+            
           }else{
             #ifdef USE_PRIMITIVE_HARDWARE_DRAW_ACCELERATION
-              byte pixelsInLine=0;
-              for (byte i=bit+1; i<8; i++){
-                if(getBitInByte(char_part_element, i)) {
-                  pixelsInLine++;
-                }else{
-                  break;
-                }
-              }
+              
 
               if(pixelsInLine>0){
                 driver_display_drawFastVLine(x +  char_part + i*FONT_CHAR_WIDTH, y + bit, pixelsInLine);

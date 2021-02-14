@@ -189,7 +189,7 @@ void core_views_statusBar_draw(){
     // TIME
     #ifdef CLOCK_ENABLE
         setDrawColor(STYLE_STATUSBAR_TEXT_RED, STYLE_STATUSBAR_TEXT_GREEN, STYLE_STATUSBAR_TEXT_BLUE);
-        drawString(core_time_getTimeString(), 5, STYLE_STATUSBAR_HEIGHT/2 - FONT_CHAR_HEIGHT/2 + ( (STYLE_STATUSBAR_HEIGHT)%2 ), 2);
+        drawString(core_time_getHourMinuteTime(), 5, STYLE_STATUSBAR_HEIGHT/2 - FONT_CHAR_HEIGHT/2 + ( (STYLE_STATUSBAR_HEIGHT)%2 ), 2);
     #endif
 
     // BATTERY
@@ -279,16 +279,7 @@ int core_views_pages_list_get_element_position_x(int pages_quantity, int positio
 
 void core_views_draw_app_icon(boolean draw, int x, int y, const byte* title, const unsigned char* icon){
     // image
-    
-    //if(draw) setDrawColor(0, 255, 0);
-    //else setDrawColor(getBackgroundColor_red(), getBackgroundColor_green(), getBackgroundColor_blue());
-    //drawRect(x-CORE_VIEWS_APPICON_IMAGE_WIDTH/2, y-CORE_VIEWS_APPICON_IMAGE_HEIGHT/2 + CORE_VIEWS_APPICON_IMAGE_Y_OFFSET, x+CORE_VIEWS_APPICON_IMAGE_WIDTH/2, y+CORE_VIEWS_APPICON_IMAGE_HEIGHT/2 + CORE_VIEWS_APPICON_IMAGE_Y_OFFSET);
-
     drawIcon(draw, icon, x-CORE_VIEWS_APPICON_IMAGE_WIDTH/2, y-CORE_VIEWS_APPICON_IMAGE_HEIGHT/2 + CORE_VIEWS_APPICON_IMAGE_Y_OFFSET);
-
-    //Serial.println(x);
-    //Serial.println(y);
-    //Serial.println((char*)icon);
 
     // title
     if(draw){

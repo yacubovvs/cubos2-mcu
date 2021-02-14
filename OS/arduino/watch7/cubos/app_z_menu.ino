@@ -121,6 +121,8 @@
 
 // # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # //
 
+char app_z_menu_selectedAppIndex = 0; // Now it is a global variable
+
 class appNameClass: public Application{
     public:
         virtual void onLoop() override;
@@ -139,7 +141,6 @@ class appNameClass: public Application{
         const static byte icon[] PROGMEM;
       
     private:
-        int selectedAppIndex;
         const byte* getApplicationTitle(int num);
         const unsigned char* getApplicationIcon(int num);
         void drawIcons(boolean draw);
@@ -170,32 +171,19 @@ const byte appNameClass::icon[] PROGMEM = {
 };
 
 void appNameClass::onCreate(){
-    //core_views_statusBar_draw();
-    this->selectedAppIndex = 0;
-    /*  // * /
-    #ifdef serialDebug
-        // Serial.println("Application on onCreate");
-
-        Serial.print("SINGLE_ELEMENTS_IN_X ");
-        Serial.println(SINGLE_ELEMENTS_IN_X);
-
-        Serial.print("SINGLE_ELEMENTS_IN_Y ");
-        Serial.println(SINGLE_ELEMENTS_IN_Y);
-
-        Serial.print("SINGLE_ELEMENT_REAL_WIDTH ");
-        Serial.println(SINGLE_ELEMENT_REAL_WIDTH);
-
-        Serial.print("SINGLE_ELEMENT_REAL_HEIGHT ");
-        Serial.println(SINGLE_ELEMENT_REAL_HEIGHT);
-    #endif
-    // */
-
+    
+    byte app_z_menu_selectedAppIndex_presaved = app_z_menu_selectedAppIndex;
+    app_z_menu_selectedAppIndex=0;
     core_views_draw_pages_list_simple(true, PAGES_LIST_POSITION, TOTAL_PAGES);
-    core_views_draw_active_page(true, PAGES_LIST_POSITION, TOTAL_PAGES, 0);
+
+    byte currentPage = app_z_menu_selectedAppIndex_presaved/APPS_ON_SINGLE_PAGE;
+    if(currentPage==0) core_views_draw_active_page(true, PAGES_LIST_POSITION, TOTAL_PAGES, currentPage);
+    //else this->updateActiveAppIndex(app_z_menu_selectedAppIndex_presaved);  
+    this->updateActiveAppIndex(app_z_menu_selectedAppIndex_presaved);  
 
     // Drawing icons
     this->drawIcons(true);
-    this->drawActiveAppFrame(true);
+    this->drawActiveAppFrame(true);  
     
 }
 
@@ -204,21 +192,18 @@ void appNameClass::updateActiveAppIndex(int newSelectedAppIndex){
   if(newSelectedAppIndex<0) newSelectedAppIndex = APP_MENU_APPLICATIONS_QUANTITY - 1;
   if(newSelectedAppIndex>=APP_MENU_APPLICATIONS_QUANTITY) newSelectedAppIndex = 0;
 
-  if(this->selectedAppIndex!=newSelectedAppIndex){
+  if(app_z_menu_selectedAppIndex!=newSelectedAppIndex){
     
     this->drawActiveAppFrame(false);
-    if( (int)((this->selectedAppIndex)/APPS_ON_SINGLE_PAGE) != (int)((newSelectedAppIndex)/APPS_ON_SINGLE_PAGE)){
+    if( (int)((app_z_menu_selectedAppIndex)/APPS_ON_SINGLE_PAGE) != (int)((newSelectedAppIndex)/APPS_ON_SINGLE_PAGE)){
       // update page
-      #ifdef serialDebug
-        Serial.println("Updating page");
-      #endif
       this->drawIcons(false);
-      core_views_draw_active_page(false, PAGES_LIST_POSITION, TOTAL_PAGES, (int)(this->selectedAppIndex/APPS_ON_SINGLE_PAGE));
-      this->selectedAppIndex = newSelectedAppIndex;
-      core_views_draw_active_page(true, PAGES_LIST_POSITION, TOTAL_PAGES, (int)(this->selectedAppIndex/APPS_ON_SINGLE_PAGE));
+      core_views_draw_active_page(false, PAGES_LIST_POSITION, TOTAL_PAGES, (int)(app_z_menu_selectedAppIndex/APPS_ON_SINGLE_PAGE));
+      app_z_menu_selectedAppIndex = newSelectedAppIndex;
+      core_views_draw_active_page(true, PAGES_LIST_POSITION, TOTAL_PAGES, (int)(app_z_menu_selectedAppIndex/APPS_ON_SINGLE_PAGE));
       this->drawIcons(true);
     }else{
-      this->selectedAppIndex = newSelectedAppIndex;
+      app_z_menu_selectedAppIndex = newSelectedAppIndex;
     }
 
     // update selected app frame
@@ -227,8 +212,8 @@ void appNameClass::updateActiveAppIndex(int newSelectedAppIndex){
 }
 
 void appNameClass::drawActiveAppFrame(boolean draw){
-  byte positionOnScreen     = this->selectedAppIndex%APPS_ON_SINGLE_PAGE;
-  byte positionOnScreen_x   = this->selectedAppIndex%SINGLE_ELEMENTS_IN_X;
+  byte positionOnScreen     = app_z_menu_selectedAppIndex%APPS_ON_SINGLE_PAGE;
+  byte positionOnScreen_x   = app_z_menu_selectedAppIndex%SINGLE_ELEMENTS_IN_X;
   byte positionOnScreen_y   = positionOnScreen/SINGLE_ELEMENTS_IN_X;
 
   int x0 = positionOnScreen_x*SINGLE_ELEMENT_REAL_WIDTH;
@@ -257,7 +242,7 @@ void appNameClass::drawIcons(boolean draw){
             int x_center = (x0+x1)/2;
             int y_center = (y0+y1)/2;
 
-            int app_num = y_position*(SINGLE_ELEMENTS_IN_Y) + x_position + APPS_ON_SINGLE_PAGE*(int)(this->selectedAppIndex/APPS_ON_SINGLE_PAGE);
+            int app_num = y_position*(SINGLE_ELEMENTS_IN_Y) + x_position + APPS_ON_SINGLE_PAGE*(int)(app_z_menu_selectedAppIndex/APPS_ON_SINGLE_PAGE);
 
             if(app_num<APP_MENU_APPLICATIONS_QUANTITY){
               #ifdef ESP8266
@@ -290,17 +275,6 @@ void appNameClass::onDestroy(){
     #ifdef serialDebug
       Serial.println("Application on onDestroy");
     #endif
-
-    /*
-      // Clear active page selector
-      core_views_draw_pages_list_simple(false, PAGES_LIST_POSITION, TOTAL_PAGES);
-      // Clear page selector
-      core_views_draw_active_page(false, PAGES_LIST_POSITION, TOTAL_PAGES, 1);
-      
-      drawActiveAppFrame(false);
-      // Clear icons
-      this->drawIcons(false);
-    */
 }
 
 void appNameClass::onEvent(byte event, int val1, int val2){
@@ -308,17 +282,13 @@ void appNameClass::onEvent(byte event, int val1, int val2){
     if(event==EVENT_BUTTON_PRESSED){
       switch(val1){
         case 0:
-          this->updateActiveAppIndex(this->selectedAppIndex-1);
+          this->updateActiveAppIndex(app_z_menu_selectedAppIndex-1);
           break;
         case 1:
-          #ifdef serialDebug
-            Serial.print("Selected app to open ");
-            Serial.println(this->selectedAppIndex);
-          #endif
-          startApp(this->selectedAppIndex);
+          startApp(app_z_menu_selectedAppIndex);
           break;
         case 2:
-          this->updateActiveAppIndex(this->selectedAppIndex+1);
+          this->updateActiveAppIndex(app_z_menu_selectedAppIndex+1);
           break;
       }
     }else if(event==EVENT_BUTTON_RELEASED){

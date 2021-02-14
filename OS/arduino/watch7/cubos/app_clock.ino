@@ -60,13 +60,24 @@ void appNameClass::onEvent(byte event, int val1, int val2){
     }else if(event==EVENT_ON_TIME_CHANGED){
         // Write you code on system time changed
         this->draw_current_time();
+    }else if(event==EVENT_ON_GOING_TO_SLEEP){
+        String timeString = core_time_getHourMinuteSecondsTime();
+        setDrawColor(0, 0, 0);
+        clearString(timeString, 2, 90, 5);
+    }else if(event==EVENT_ON_WAKE_UP){
+        this->draw_current_time();
     }
+
+     
     
 }
 
 void appNameClass::draw_current_time(){
+    String timeString = core_time_getHourMinuteSecondsTime();
+    setDrawColor(0, 0, 0);
+    clearString(timeString, 2, 90, 5);
     setDrawColor(255, 255, 255);
-    drawString(core_time_getTimeString(), 2, 90, 8);
+    drawString(timeString, 2, 90, 5);
 }
 
 const byte appNameClass::icon[] PROGMEM = {

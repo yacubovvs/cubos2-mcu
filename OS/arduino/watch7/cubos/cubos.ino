@@ -6,6 +6,10 @@
     ############################################################################################
 */
 
+// ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !
+//      FOR ESP8266 USE NONOSSDK 2.2.2 +
+// ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !
+
 //#define serialDebug
 #define screenDebug
 
@@ -45,6 +49,8 @@
 #define BATTERY_ENABLE
 #define CLOCK_ENABLE
 #define USE_PRIMITIVE_HARDWARE_DRAW_ACCELERATION
+
+#define USE_RTC
 
 //#define SCREEN_ROTATION_0
 //#define SCREEN_ROTATION_90
@@ -93,6 +99,29 @@ void fillScreen(byte red, byte green, byte blue);
 /*
     ############################################################################################
     #                                     PREDEFINE -                                          #
+    ############################################################################################
+*/
+
+/*
+    ############################################################################################
+    #                                                                                          #
+    #                                         EVENTS +                                         #
+    #                                                                                          #
+    ############################################################################################
+*/
+
+#define EVENT_BUTTON_PRESSED            0x00
+#define EVENT_BUTTON_RELEASED           0x01
+#define EVENT_BUTTON_LONG_PRESS         0x02
+#define EVENT_ON_TIME_CHANGED           0x03
+#define EVENT_ON_GOING_TO_SLEEP         0x04
+#define EVENT_ON_WAKE_UP                0x05
+
+/*
+    ############################################################################################
+    #                                                                                          #
+    #                                         EVENTS -                                         #
+    #                                                                                          #
     ############################################################################################
 */
 
@@ -171,6 +200,10 @@ void setup()
 { 
     driver_battery_setup();
 
+    #ifdef USE_RTC
+        driver_RTC_setup();
+    #endif
+
     #ifdef serialDebug
         Serial.begin(115200);
         debug("Serial debug started");
@@ -191,13 +224,15 @@ void setup()
 
 bool isInSleep = false;
 void loop(){
-  driver_battery_loop();
   driver_controls_loop();
+  driver_battery_loop();
   core_time_loop();
   currentApp->onLoop(); 
+  //currentApp->onLoop(); 
 
   #ifdef ESP8266
-    ESP.wdtDisable();
+    //ESP.wdtDisable();
+    ESP.wdtFeed();
   #endif
 
   #ifdef CPU_SLEEP_ENABLE
@@ -205,6 +240,7 @@ void loop(){
     if(millis() - driver_control_get_last_user_avtivity() > DELAY_BEFORE_SLEEP){
         if(!isInSleep){
             isInSleep = true;
+            currentApp->onEvent(EVENT_ON_GOING_TO_SLEEP, 0, 0);
             powerOff_displayDriver();
         }
 
@@ -214,10 +250,12 @@ void loop(){
       if(isInSleep){
         isInSleep = false;
         driver_cpu_wakeup();
+        currentApp->onEvent(EVENT_ON_WAKE_UP, 0, 0);
       }
     }
     //driver_cpu_wakeup();
   #endif
+
 }
 
 #ifdef CPU_SLEEP_ENABLE
@@ -225,10 +263,6 @@ void loop(){
         driver_cpu_sleep();
     }
 #endif
-
-void onButtonEvent(byte event, int button){
-  currentApp->onEvent(event, button, 0);
-}
 
 void debug(String string){
   debug(string, 0);
@@ -291,28 +325,6 @@ void debug(String string, int delaytime){
     #                                                                                          #
     ############################################################################################
 */
-
-/*
-    ############################################################################################
-    #                                                                                          #
-    #                                         EVENTS +                                         #
-    #                                                                                          #
-    ############################################################################################
-*/
-
-#define EVENT_BUTTON_PRESSED            0x00
-#define EVENT_BUTTON_RELEASED           0x01
-#define EVENT_BUTTON_LONG_PRESS         0x02
-#define EVENT_ON_TIME_CHANGED           0x03
-
-/*
-    ############################################################################################
-    #                                                                                          #
-    #                                         EVENTS -                                         #
-    #                                                                                          #
-    ############################################################################################
-*/
-
 
 /*
     ############################################################################################

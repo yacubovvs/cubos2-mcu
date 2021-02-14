@@ -63,6 +63,10 @@ void driver_control_set_last_user_avtivity(unsigned long time){
   last_user_activity = time;
 }
 
+void onButtonEvent(byte event, int button){
+  currentApp->onEvent(event, button, 0);
+}
+
 /*
 
 

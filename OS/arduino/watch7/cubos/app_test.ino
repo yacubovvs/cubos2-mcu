@@ -128,7 +128,7 @@ void appNameClass::onCreate(){
     //  Results:
     // 13.02.2021 3170ms
     // 13.02.2021 1935ms - Hardware acceleration for drawing lines
-    // 14.02.2021 1933ms - Some optimisation
+    // 14.02.2021 1933ms - Some optimization
     // 14.02.2021 1418ms - Added function clearString
 
     delay(2000);
@@ -170,7 +170,10 @@ void appNameClass::onCreate(){
     drawString("Finish at " + String(time_finish), 5, STYLE_STATUSBAR_HEIGHT + 10 + 16*1, 2);
 
     //  Results:
-    // 13.02.2021 3620ms
+    // 13.02.2021 3620 ms
+    // 14.02.2021 2215 ms    - Added function clearString
+    // 14.02.2021 525 ms     - Draw optimization
+    // 14.02.2021 504 ms     - Drawing pixels in raw with fontsize>1
 
     delay(2000);
     
